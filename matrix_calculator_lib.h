@@ -1,21 +1,21 @@
 #pragma once
 
-void mostrarMatriz(int f, int c, int **m);
+void mostrarMatriz(int f, int c, double **m);
 
-void llenarMatriz(int f, int c, int **m);
+void llenarMatriz(int f, int c, double **m);
 
-void sumaDeMatrices(int f, int c, int **matrizA, int **matrizB, int **matrizSuma);
+void sumaDeMatrices(int f, int c, double **matrizA, double **matrizB, double **matrizSuma);
 
-void restaDeMatrices(int f, int c, int **matrizA, int **matrizB, int **matrizResta);
+void restaDeMatrices(int f, int c, double **matrizA, double **matrizB, double **matrizResta);
 
-void productoDeMatrices(int filA, int columB, int n, int **A, int **B, int **P);
+void productoDeMatrices(int filA, int columB, int n, double **A, double **B, double **P);
 
-void matrizPorEscalar(int n, int f, int c, int **m, int **p);
+void matrizPorEscalar(double n, int f, int c, double **m, double **p);
 
-void identidad(int n, int **m);	
+void identidad(int n, double **m);	
 
-void guardarMatriz(int **matriz, int f, int c, const char *nombreArchivo);
+void guardarMatriz(double **matriz, int f, int c, const char *nombreArchivo);
 
-void cargarMatriz(const char *nombreArchivo, int ***matriz, int *f, int *c);
+void cargarMatriz(const char *nombreArchivo, double ***matriz, int *f, int *c);
 
-int calcularDeterminante(int n, int **matriz);
+double calcularDeterminante(int n, double **matriz);
