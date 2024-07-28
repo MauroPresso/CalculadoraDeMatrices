@@ -88,7 +88,7 @@ void guardarMatriz(double **matriz, int f, int c, const char *nombreArchivo)
 		exit(1); // Sale del programa.
 	}
 	// Escribir las dimensiones de la matriz en el archivo
-	fprintf(archivo, "%lf %lf\n", f, c);
+	fprintf(archivo, "%d %d\n", f, c);
 	// Escribir los elementos de la matriz en el archivo
 	for (int i = 0; i < f; i++) {
 		for (int j = 0; j < c; j++) {
@@ -108,7 +108,7 @@ void cargarMatriz(const char *nombreArchivo, double ***matriz, int *f, int *c)
 		exit(EXIT_FAILURE);
 	}
 	// Leer el número de filas y columnas desde el archivo
-	fscanf(archivo, "%lf %lf", f, c);
+	fscanf(archivo, "%d %d", f, c);
 	// Asignar memoria para la matriz
 	*matriz = (double **)malloc(*f * sizeof(double *));
 	for (int i = 0; i < *f; i++) {
