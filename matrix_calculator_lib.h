@@ -1,5 +1,9 @@
 #pragma once
 
+double** crearMatriz(int filas, int columnas);
+
+void liberarMatriz(int **matriz, int filas);
+
 void mostrarMatriz(int f, int c, double **m);
 
 void llenarMatriz(int f, int c, double **m);
