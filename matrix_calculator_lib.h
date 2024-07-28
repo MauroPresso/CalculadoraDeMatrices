@@ -2,7 +2,7 @@
 
 double** crearMatriz(int filas, int columnas);
 
-void liberarMatriz(int **matriz, int filas);
+void liberarMatriz(double **matriz, int filas);
 
 void mostrarMatriz(int f, int c, double **m);
 
