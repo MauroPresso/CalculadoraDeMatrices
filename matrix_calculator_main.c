@@ -60,28 +60,14 @@ int main()
 			} while(banderaPositivos==0);
 			printf("\n\n");
 			// MATRIZ A.
-			//asignamos la memoria dinamica para almacenar el vector que almacenara los
-			//vectores (matriz)
-			double **A = (double **) malloc(sizeof(double *) * filas);
-			for(int i = 0 ; i < filas ; i++){
-				A[i] = (double *) malloc(sizeof(double *) * columnas);
-			}
+			double **A = crearMatriz(filas, columnas);
 			// MATRIZ B.
-			//asignamos la memoria dinamica para almacenar el vector que almacenara los
-			//vectores (matriz)
-			double **B = (double **) malloc(sizeof(double *) * filas);
-			for(int i = 0 ; i < filas ; i++){
-				B[i] = (double *) malloc(sizeof(double *) * columnas);
-			}
+			double **B = crearMatriz(filas, columnas);
 			// MATRIZ R.
-			//asignamos la memoria dinamica para almacenar el vector que almacenara los
-			//vectores (matriz)
-			double **R = (double **) malloc(sizeof(double *) * filas);
-			for(int i = 0 ; i < filas ; i++){
-				R[i] = (double *) malloc(sizeof(double *) * columnas);
-			}
+			double **R = crearMatriz(filas, columnas);
 			// Pregunta si quiere cargar.
-			do{
+			do
+			{
 				printf("\nSr Usuario: si usted desea usted CARGAR la matriz resultado de un archivo ahora, ingrese '1'. Caso contrario, ingrese '0': ");
 				Beep(900,500);
 				scanf("%d",&preguntaCargar);
@@ -91,7 +77,8 @@ int main()
 					Beep(900,500);
 				}
 			} while(preguntaCargar!=0 && preguntaCargar!=1);
-			if(preguntaCargar==0){
+			if(preguntaCargar==0)
+			{
 				printf("\nIngrese los coeficientes para la matriz A:\n");
 				llenarMatriz(filas,columnas,A);
 			}
@@ -114,9 +101,9 @@ int main()
 				guardarMatriz(R,filas,columnas,"matrizResultado.txt");
 			}
 			// Libero memoria dinámica
-			free(A);
-			free(B);
-			free(R);
+			liberarMatriz(A, filas);
+			liberarMatriz(B, filas);
+			liberarMatriz(R, filas);
 		}
 		if(op=='b')
 		{
@@ -138,26 +125,11 @@ int main()
 			} while(banderaPositivos==0);
 			printf("\n\n");
 			// MATRIZ A.
-			//asignamos la memoria dinamica para almacenar el vector que almacenara los
-			//vectores (matriz)
-			double **A = (double **) malloc(sizeof(double *) * filas);
-			for(int i = 0 ; i < filas ; i++){
-				A[i] = (double *) malloc(sizeof(double *) * columnas);
-			}
+			double **A = crearMatriz(filas, columnas);
 			// MATRIZ B.
-			//asignamos la memoria dinamica para almacenar el vector que almacenara los
-			//vectores (matriz)
-			double **B = (double **) malloc(sizeof(double *) * filas);
-			for(int i = 0 ; i < filas ; i++){
-				B[i] = (double *) malloc(sizeof(double *) * columnas);
-			}
+			double **B = crearMatriz(filas, columnas);
 			// MATRIZ R.
-			//asignamos la memoria dinamica para almacenar el vector que almacenara los
-			//vectores (matriz)
-			double **R = (double **) malloc(sizeof(double *) * filas);
-			for(int i = 0 ; i < filas ; i++){
-				R[i] = (double *) malloc(sizeof(double *) * columnas);
-			}
+			double **R = crearMatriz(filas, columnas);
 			// Pregunta si quiere cargar.
 			do{
 				printf("\nSr Usuario: si usted desea usted CARGAR la matriz resultado de un archivo ahora, ingrese '1'. Caso contrario, ingrese '0': ");
@@ -192,9 +164,9 @@ int main()
 				guardarMatriz(R,filas,columnas,"matrizResultado.txt");
 			}
 			// Libero memoria dinámica
-			free(A);
-			free(B);
-			free(R);
+			liberarMatriz(A, filas);
+			liberarMatriz(B, filas);
+			liberarMatriz(R, filas);
 
 		}
 		if(op=='c')
@@ -221,26 +193,11 @@ int main()
 			} while(banderaPositivos==0);
 			printf("\n\n");
 			// MATRIZ A.
-			//asignamos la memoria dinamica para almacenar el vector que almacenara los
-			//vectores (matriz)
-			double **A = (double **) malloc(sizeof(double *) * filasA);
-			for(int i = 0 ; i < filasA ; i++){
-				A[i] = (double *) malloc(sizeof(double *) * N);
-			}
+			double **A = crearMatriz(filasA, N);
 			// MATRIZ B.
-			//asignamos la memoria dinamica para almacenar el vector que almacenara los
-			//vectores (matriz)
-			double **B = (double **) malloc(sizeof(double *) * N);
-			for(int i = 0 ; i < N ; i++){
-				B[i] = (double *) malloc(sizeof(double *) * columnasB);
-			}
+			double **B = crearMatriz(N, columnasB);
 			// MATRIZ R.
-			//asignamos la memoria dinamica para almacenar el vector que almacenara los
-			//vectores (matriz)
-			double **R = (double **) malloc(sizeof(double *) * filasA);
-			for(int i = 0 ; i < filasA ; i++){
-				R[i] = (double *) malloc(sizeof(double *) * columnasB);
-			}
+			double **R = crearMatriz(filasA, columnasB);
 			// Pregunta si quiere cargar.
 			do{
 				printf("\nSr Usuario: si usted desea usted CARGAR la matriz resultado de un archivo ahora, ingrese '1'. Caso contrario, ingrese '0': ");
@@ -273,10 +230,10 @@ int main()
 			{
 				guardarMatriz(R,filasA,columnasB,"matrizResultado.txt");
 			}
-			// Libero memoria dinámica.
-			free(A);
-			free(B);
-			free(R);
+			// Libero memoria dinámica
+			liberarMatriz(A, filasA);
+			liberarMatriz(B, N);
+			liberarMatriz(R, filasA);
 		}
 		if(op=='d')
 		{
@@ -297,19 +254,9 @@ int main()
 				}
 			} while(banderaPositivos==0);
 			// MATRIZ A.
-			//asignamos la memoria dinamica para almacenar el vector que almacenara los
-			//vectores (matriz)
-			double **A = (double **) malloc(sizeof(double *) * filas);
-			for(int i = 0 ; i < filas ; i++){
-				A[i] = (double *) malloc(sizeof(double *) * columnas);
-			}
+			double **A = crearMatriz(filas, columnas);
 			// MATRIZ R.
-			//asignamos la memoria dinamica para almacenar el vector que almacenara los
-			//vectores (matriz)
-			double **R = (double **) malloc(sizeof(double *) * filas);
-			for(int i = 0 ; i < filas ; i++){
-				R[i] = (double *) malloc(sizeof(double *) * columnas);
-			}
+			double **R = crearMatriz(filas, columnas);
 			// Escalar
 			double escalar;
 			printf("\nIngrese un escalar:\n");
@@ -343,9 +290,9 @@ int main()
 			{
 				guardarMatriz(R,filas,columnas,"matrizResultado.txt");
 			}
-			// Libero la memoria dinámica
-			free(A);
-			free(R);
+			// Libero memoria dinámica
+			liberarMatriz(A, filas);
+			liberarMatriz(R, filas);
 		}
 		if(op=='e')
 		{
@@ -354,12 +301,7 @@ int main()
 				scanf("%d",&N);
 			} while(N<=0);
 			// MATRIZ IDENTIDAD.
-			//asignamos la memoria dinamica para almacenar el vector que almacenara los
-			//vectores (matriz)
-			double **R = (double **) malloc(sizeof(double *) * N);
-			for(int i = 0 ; i < N ; i++){
-				R[i] = (double *) malloc(sizeof(double *) * N);
-			}
+			double **R = crearMatriz(N, N);
 			//llamar a sus funciones.
 			identidad(N,R);
 			printf("\nMatriz IDENTIDAD:\n");
@@ -369,7 +311,7 @@ int main()
 				guardarMatriz(R,N,N,"matrizResultado.txt");
 			}
 			// Libero memoria dinamica
-			free(R);
+			liberarMatriz(R, N);
 		}
 		if(op=='f')
 		{
@@ -385,12 +327,7 @@ int main()
 			} while (N <= 0);
 			printf("\n\n");
 			// MATRIZ A.
-			//asignamos la memoria dinamica para almacenar el vector que almacenara los
-			//vectores (matriz)
-			double **A = (double **) malloc(sizeof(double *) * N);
-			for(int i = 0 ; i < N ; i++){
-				A[i] = (double *) malloc(sizeof(double *) * N);
-			}
+			double **A = crearMatriz(N, N);
 			// Pregunta si quiere cargar.
 			do{
 				printf("\nSr Usuario: si usted desea usted CARGAR la matriz resultado de un archivo ahora, ingrese '1'. Caso contrario, ingrese '0': ");
@@ -415,7 +352,7 @@ int main()
 			double det;
 			det = calcularDeterminante(N,A); 
 			printf("\n\nEl determinante de la matriz es: %0.4lf\n", det);
-			free(A);
+			liberarMatriz(A, N);
 		}
 	} while(op!='g');
 	return 0;
