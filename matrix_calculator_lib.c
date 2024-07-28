@@ -135,20 +135,16 @@ double calcularDeterminante(int n, double **matriz)
 	} else {
 		double determinante = 0;
 		int h, i, j;
+		// SUBMATRIZ.
+		//asignamos la memoria dinamica para almacenar el vector que almacenara los
+		//vectores (submatriz)
+		double **submatriz = (double **) malloc(sizeof(double *) * (n - 1));
+		for(int i = 0 ; i < n ; i++){
+			submatriz[i] = (double *) malloc(sizeof(double *) * (n - 1));
+		}
+		// Representa la submatriz que se obtiene al eliminar la primera fila y la columna h de la matriz original. 
+		// Esto se hace para calcular el determinante de la submatriz.
 		for (h = 0; h < n; h++) { // h representa las columnas de la matriz original que se eliminan para hacer la submatriz.
-			// SUBMATRIZ.
-			/*if(h==n) // Ya se calculó el determinante, libera la memoria dinámica de la submatriz.
-			{
-				free(submatriz);
-			}*/
-			//asignamos la memoria dinamica para almacenar el vector que almacenara los
-			//vectores (submatriz)
-			double **submatriz = (double **) malloc(sizeof(double *) * (n - 1));
-			for(int i = 0 ; i < n ; i++){
-				submatriz[i] = (double *) malloc(sizeof(double *) * (n - 1));
-			}
-			// Representa la submatriz que se obtiene al eliminar la primera fila y la columna h de la matriz original. 
-			// Esto se hace para calcular el determinante de la submatriz.
 			for (i = 1; i < n; i++) { // i representa las filas de la submatriz, por eso arranca en 1 (porque se quitó la primera fila).
 				for (j = 0; j < n; j++) { // j representa las columnas de la submatriz por eso arranca en cero y no puede ser igual que h porque la columna h-ésima se quitó.
 					//Los bucles for anidados con variables i y j se utilizan para copiar los elementos de la matriz original matriz a la submatriz, 
@@ -171,6 +167,7 @@ double calcularDeterminante(int n, double **matriz)
 			// El resultado parcial se acumula en la variable determinante. Luego, el bucle continúa con la siguiente columna.
 		}
 		// Después de que el bucle for haya recorrido todas las columnas, la función devuelve el valor calculado en determinante, que es el determinante de la matriz original.
+		free(submatriz);
 		return determinante;
 	}
 }
