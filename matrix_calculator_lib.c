@@ -15,7 +15,7 @@ double** crearMatriz(int filas, int columnas)
 }
 
 // Función para liberar la memoria de una matriz
-void liberarMatriz(int **matriz, int filas) 
+void liberarMatriz(double **matriz, int filas) 
 {
     for (int i = 0; i < filas; i++) 
 	{
@@ -150,7 +150,7 @@ void cargarMatriz(const char *nombreArchivo, double ***matriz, int *f, int *c)
 	// Leer el número de filas y columnas desde el archivo
 	fscanf(archivo, "%d %d", f, c);
 	// Asignar memoria para la matriz
-	*matriz = (double **)malloc(*f * sizeof(double *));
+	(*matriz) = (double **)malloc(*f * sizeof(double *));
 	for (int i = 0; i < *f; i++) 
 	{
 		(*matriz)[i] = (double *)malloc(*c * sizeof(double));
@@ -165,8 +165,6 @@ void cargarMatriz(const char *nombreArchivo, double ***matriz, int *f, int *c)
 	}
 	// Cerrar el archivo
 	fclose(archivo);
-	// Libero memoria dinámica
-	free(*matriz);
 }
 
 double calcularDeterminante(int n, double **matriz)
@@ -174,7 +172,8 @@ double calcularDeterminante(int n, double **matriz)
 	if (n == 1) 
 	{
 		return matriz[0][0];
-	} else if (n == 2) 
+	} 
+	else if (n == 2) 
 	{
 		return matriz[0][0] * matriz[1][1] - matriz[0][1] * matriz[1][0];
 	} 
@@ -183,13 +182,7 @@ double calcularDeterminante(int n, double **matriz)
 		double determinante = 0;
 		int h, i, j;
 		// SUBMATRIZ.
-		//asignamos la memoria dinamica para almacenar el vector que almacenara los
-		//vectores (submatriz)
-		double **submatriz = (double **) malloc(sizeof(double *) * (n - 1));
-		for(int i = 0 ; i < n ; i++)
-		{
-			submatriz[i] = (double *) malloc(sizeof(double *) * (n - 1));
-		}
+		double **submatriz = crearMatriz((n-1), (n-1));
 		// Representa la submatriz que se obtiene al eliminar la primera fila y la columna h de la matriz original. 
 		// Esto se hace para calcular el determinante de la submatriz.
 		for (h = 0; h < n; h++) 
@@ -223,7 +216,7 @@ double calcularDeterminante(int n, double **matriz)
 			// El resultado parcial se acumula en la variable determinante. Luego, el bucle continúa con la siguiente columna.
 		}
 		// Después de que el bucle for haya recorrido todas las columnas, la función devuelve el valor calculado en determinante, que es el determinante de la matriz original.
-		free(submatriz);
+		liberarMatriz(submatriz, (n-1));
 		return determinante;
 	}
 }
