@@ -16,16 +16,16 @@ int main()
 	do{
 		// Pregunta por la operación.
 		do{
-			printf("\n\nSr Usuario, ingrese que operacion desea realizar:\na. Suma de matrices.\nb. Resta de matrices.\nc. Multiplicacion entre matrices.\nd. Multiplicacion entre matriz y un escalar.\ne. Matriz identidad.\nf. Determinante de una matriz.\ng.Salir del programa\n\n");
+			printf("\n\nSr Usuario, ingrese que operacion desea realizar:\na. Suma de matrices.\nb. Resta de matrices.\nc. Multiplicacion entre matrices.\nd. Multiplicacion entre matriz y un escalar.\ne. Matriz identidad.\nf. Determinante de una matriz.\ng. Matriz Transpuesta.\nh. Matriz Adjunta.\ni. Matriz Inversa.\nj. Salir del programa\n\n");
 			scanf("%c",&op);
 			fflush(stdin);
 			if(op!='a' && op!='b' && op!='c' && op!='d' && op!='e' && op!='f' && op!='g')
 			{
 				Beep(900,500);
 			}
-		} while(op!='a' && op!='b' && op!='c' && op!='d' && op!='e' && op!='f' && op!='g');
+		} while(op!='a' && op!='b' && op!='c' && op!='d' && op!='e' && op!='f' && op!='g' && op!='h' && op!='i' && op!='j');
 		// Pregunta si quiere guardar.
-		if(op=='a' || op=='b' || op=='c' || op=='d' || op=='e')
+		if(op=='a' || op=='b' || op=='c' || op=='d' || op=='e' || op=='f' || op=='g' || op=='h' || op=='i')
 		{
 			do{
 				printf("\nSr Usuario: si usted desea usted GUARDAR la matriz resultado en un archivo, ingrese '1'. Caso contrario, ingrese '0': ");
@@ -354,7 +354,62 @@ int main()
 			printf("\n\nEl determinante de la matriz es: %0.4lf\n", det);
 			liberarMatriz(A, N);
 		}
-	} while(op!='g');
+		if(op=='g')
+		{
+			banderaPositivos=0;
+			do{
+				printf("\nADVERTENCIA: Si desea CARGAR la matriz resultado de un archivo mas adelante, la cantidad de filas y de columnas de las matriz a multiplicar deben coincidir con las dimensiones de la matriz resultado del archivo.\n");
+				Beep(900,500);
+				printf("\nIngrese la cantidad de filas de la matriz: ");
+				scanf("%d",&filas);
+				printf("\nIngrese la cantidad de columnas de la matriz: ");
+				scanf("%d",&columnas);
+				if(filas>0 && columnas>0){
+					banderaPositivos=1;
+				}
+				else{
+					printf("\nLa cantidad de filas y columnas de una matriz deben ser siempre positivos.\n.");
+					Beep(900,500);
+				}
+			} while(banderaPositivos==0);
+			// MATRIZ A.
+			double **A = crearMatriz(filas, columnas);
+			// MATRIZ R.
+			double **T = crearMatriz(columnas, filas);
+			// Pregunta si quiere cargar.
+			do{
+				printf("\nSr Usuario: si usted desea usted CARGAR la matriz resultado de un archivo ahora, ingrese '1'. Caso contrario, ingrese '0': ");
+				Beep(900,500);
+				scanf("%d",&preguntaCargar);
+				fflush(stdin);
+				if(preguntaCargar!=0 && preguntaCargar!=1)
+				{
+					Beep(900,500);
+				}
+			} while(preguntaCargar!=0 && preguntaCargar!=1);
+			if(preguntaCargar==0){
+				printf("\nIngrese los coeficientes para la matriz A:\n");
+				llenarMatriz(filas,columnas,A);
+			}
+			if(preguntaCargar==1)
+			{
+				cargarMatriz("matrizResultado.txt",&A,&filas,&columnas);
+			}
+			//llamar a sus funciones.
+			printf("\nMatriz A:\n");
+			mostrarMatriz(filas,columnas,A);
+			transponerMatriz(A,T,filas,columnas);
+			printf("\nLa matriz transpuesta de A es:\n");
+			mostrarMatriz(columnas,filas,T);
+			if(preguntaGuardar==1)
+			{
+				guardarMatriz(T,filas,columnas,"matrizResultado.txt");
+			}
+			// Libero memoria dinámica
+			liberarMatriz(A, filas);
+			liberarMatriz(T, filas);
+		}
+	} while(op!='j');
 	return 0;
 }
 
