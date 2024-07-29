@@ -30,7 +30,14 @@ void mostrarMatriz(int f, int c, double **m)
 	{
 		for(int j = 0 ; j < c ; j++)
 		{
-			printf("%0.4lf\t",m[i][j]);
+			if(m[i][j]==0)
+			{
+				printf("%0.4lf\t",0.000000);
+			}
+			else
+			{
+				printf("%0.4lf\t",m[i][j]);
+			}
 		}
 		printf("\n");
 	}
@@ -197,7 +204,8 @@ double calcularDeterminante(int n, double **matriz)
 					if (j < h) 
 					{
 						submatriz[i - 1][j] = matriz[i][j];
-					} else if (j > h) 
+					} 
+					else if (j > h) 
 					{
 						submatriz[i - 1][j - 1] = matriz[i][j];
 					}
@@ -231,4 +239,54 @@ void transponerMatriz(double **matriz, double **transpuesta, int filas, int colu
             transpuesta[j][i] = matriz[i][j];
         }
     }
+}
+
+void calcularAdjunta(int n, double **matriz, double **adjunta) 
+{
+    if (n == 1) 
+	{
+        adjunta[0][0] = 1;
+		return;
+    }
+	// SUBMATRIZ.
+	double **submatriz = crearMatriz(n - 1, n - 1);
+    int i,j,h;
+	int sub_i,sub_j;
+	int fila,columna;
+	for (i = 0; i < n; i++) 
+	{
+        for (j = 0; j < n; j++) 
+		{
+            sub_i = 0;
+			for (fila = 0; fila < n; fila++)
+			{
+				if(fila!=i)
+				{
+					sub_j = 0;
+					for (columna = 0; columna < n; columna++)
+					{
+						if(columna!=j)
+						{
+							submatriz[sub_i][sub_j] = matriz[fila][columna];
+							sub_j++;
+						}
+					}
+					sub_i++;
+				}
+				
+			}
+            // Calcular el cofactor y almacenarlo en la adjunta
+            double cofactor = calcularDeterminante(n - 1, submatriz);
+			if ((i + j) % 2 == 0) 
+			{
+				adjunta[i][j] = cofactor;
+			} 
+			else 
+			{
+				adjunta[i][j] = (-1)*cofactor;
+			}
+        }
+    }
+    liberarMatriz(submatriz, n - 1);
+
 }
