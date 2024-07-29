@@ -23,3 +23,5 @@ void guardarMatriz(double **matriz, int f, int c, const char *nombreArchivo);
 void cargarMatriz(const char *nombreArchivo, double ***matriz, int *f, int *c);
 
 double calcularDeterminante(int n, double **matriz);
+
+void transponerMatriz(double **matriz, double **transpuesta, int filas, int columnas);
