@@ -407,7 +407,56 @@ int main()
 			}
 			// Libero memoria dinámica
 			liberarMatriz(A, filas);
-			liberarMatriz(T, filas);
+			liberarMatriz(T, columnas);
+		}
+		if(op=='h')
+		{
+			do {
+				printf("\nADVERTENCIA: Si desea CARGAR una matriz de un archivo mas adelante, la matriz debe ser CUADRADA y luego debe ingresar su orden.\n");
+				Beep(900,500);
+				printf("Ingrese el orden de la matriz (debe ser estrictamente positivo): ");
+				scanf("%d", &N);
+				if(N <= 0)
+				{
+					Beep(900,500);
+				}
+			} while (N <= 0);
+			printf("\n\n");
+			// MATRIZ M.
+			double **M = crearMatriz(N, N);
+			// MATRIZ A.
+			double **A = crearMatriz(N, N);
+			// Pregunta si quiere cargar.
+			do{
+				printf("\nSr Usuario: si usted desea usted CARGAR la matriz resultado de un archivo ahora, ingrese '1'. Caso contrario, ingrese '0': ");
+				Beep(900,500);
+				scanf("%d",&preguntaCargar);
+				fflush(stdin);
+				if(preguntaCargar!=0 && preguntaCargar!=1)
+				{
+					Beep(900,500);
+				}
+			} while(preguntaCargar!=0 && preguntaCargar!=1);
+			if(preguntaCargar==0){
+				printf("\nIngrese los coeficientes para la matriz M:\n");
+				llenarMatriz(N,N,M);
+			}
+			if(preguntaCargar==1)
+			{
+				cargarMatriz("matrizResultado.txt",&M,&N,&N);
+			}
+			printf("\nMatriz M:\n");
+			mostrarMatriz(N,N,M);
+			calcularAdjunta(N,M,A);
+			printf("\nLa matriz adjunta de M es:\n");
+			mostrarMatriz(N,N,A);
+			if(preguntaGuardar==1)
+			{
+				guardarMatriz(A,filas,columnas,"matrizResultado.txt");
+			}
+			// Libero memoria dinámica
+			liberarMatriz(M, filas);
+			liberarMatriz(A, filas);
 		}
 	} while(op!='j');
 	return 0;
