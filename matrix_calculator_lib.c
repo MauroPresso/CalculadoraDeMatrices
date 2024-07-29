@@ -220,3 +220,15 @@ double calcularDeterminante(int n, double **matriz)
 		return determinante;
 	}
 }
+
+// Función para calcular la transpuesta de una matriz de tamaño filas x columnas
+void transponerMatriz(double **matriz, double **transpuesta, int filas, int columnas) 
+{
+    for (int i = 0; i < filas; i++) 
+	{
+        for (int j = 0; j < columnas; j++) 
+		{
+            transpuesta[j][i] = matriz[i][j];
+        }
+    }
+}
