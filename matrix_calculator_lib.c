@@ -283,10 +283,16 @@ void calcularAdjunta(int n, double **matriz, double **adjunta)
 			} 
 			else 
 			{
-				adjunta[i][j] = (-1)*cofactor;
+				adjunta[i][j] = -cofactor;
 			}
         }
     }
     liberarMatriz(submatriz, n - 1);
+}
 
+void invertirMatriz(int n, double determinante, double** matriz, double** transpuesta, double** adjunta, double** inversa)
+{
+	transponerMatriz(matriz,transpuesta,n,n);
+	calcularAdjunta(n,transpuesta,adjunta);
+	matrizPorEscalar((1/determinante),n,n,adjunta,inversa);
 }
