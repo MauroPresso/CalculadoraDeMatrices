@@ -27,3 +27,5 @@ double calcularDeterminante(int n, double **matriz);
 void transponerMatriz(double **matriz, double **transpuesta, int filas, int columnas);
 
 void calcularAdjunta(int n, double **matriz, double **adjunta);
+
+void invertirMatriz(int n, double determinante, double** matriz, double** transpuesta, double** adjunta, double** inversa);
