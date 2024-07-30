@@ -3,8 +3,6 @@
 #include <stdlib.h>
 #include <windows.h>
 
-
-
 int main() 
 {
 	int N;
@@ -352,6 +350,7 @@ int main()
 			double det;
 			det = calcularDeterminante(N,A); 
 			printf("\n\nEl determinante de la matriz es: %0.4lf\n", det);
+			// Libero la memoria dinámica.
 			liberarMatriz(A, N);
 		}
 		if(op=='g')
@@ -457,6 +456,67 @@ int main()
 			// Libero memoria dinámica
 			liberarMatriz(M, filas);
 			liberarMatriz(A, filas);
+		}
+		if(op=='i')
+		{
+			do {
+				printf("\nADVERTENCIA: Si desea CARGAR una matriz de un archivo mas adelante, la matriz debe ser CUADRADA y luego debe ingresar su orden.\n");
+				Beep(900,500);
+				printf("Ingrese el orden de la matriz (debe ser estrictamente positivo): ");
+				scanf("%d", &N);
+				if(N <= 0)
+				{
+					Beep(900,500);
+				}
+			} while (N <= 0);
+			printf("\n\n");
+			// MATRIZ M.
+			double **M = crearMatriz(N, N);
+			// Pregunta si quiere cargar.
+			do{
+				printf("\nSr Usuario: si usted desea usted CARGAR la matriz resultado de un archivo ahora, ingrese '1'. Caso contrario, ingrese '0': ");
+				Beep(900,500);
+				scanf("%d",&preguntaCargar);
+				fflush(stdin);
+				if(preguntaCargar!=0 && preguntaCargar!=1)
+				{
+					Beep(900,500);
+				}
+			} while(preguntaCargar!=0 && preguntaCargar!=1);
+			if(preguntaCargar==0){
+				printf("\nIngrese los coeficientes para la matriz M:\n");
+				llenarMatriz(N,N,M);
+			}
+			if(preguntaCargar==1)
+			{
+				cargarMatriz("matrizResultado.txt",&M,&N,&N);
+			}
+			printf("\nMatriz M:\n");
+			mostrarMatriz(N,N,M);
+			double det;
+			det = calcularDeterminante(N,M); 
+			if(det==0)
+			{
+				printf("El determinante es cero. Por lo tanto, la matriz es inversible");
+			}
+			else
+			{
+				// MATRIZ T.
+				double **T = crearMatriz(N, N);
+				// MATRIZ T.
+				double **A = crearMatriz(N, N);
+				// MATRIZ I.
+				double **I = crearMatriz(N, N);
+				invertirMatriz(N,det,M,T,A,I);
+				printf("\nLa matriz inversa de M es:\n");
+				mostrarMatriz(N,N,I);
+				// Libero la memoria dinámica
+				liberarMatriz(T, N);
+				liberarMatriz(A, N);
+				liberarMatriz(I, N);
+			}
+			// Libero la memoria dinámica
+			liberarMatriz(M, N);
 		}
 	} while(op!='j');
 	return 0;
