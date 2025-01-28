@@ -1,31 +1,32 @@
 #pragma once
+#include <stdint.h>
 
-double** crearMatriz(int filas, int columnas);
+double** crearMatriz(uint8_t filas, uint8_t columnas);
 
-void liberarMatriz(double **matriz, int filas);
+void liberarMatriz(double **matriz, uint8_t filas);
 
-void mostrarMatriz(int f, int c, double **m);
+void mostrarMatriz(uint8_t f, uint8_t c, double **m);
 
-void llenarMatriz(int f, int c, double **m);
+void llenarMatriz(uint8_t f, uint8_t c, double **m);
 
-void sumaDeMatrices(int f, int c, double **matrizA, double **matrizB, double **matrizSuma);
+void sumaDeMatrices(uint8_t f, uint8_t c, double **matrizA, double **matrizB, double **matrizSuma);
 
-void restaDeMatrices(int f, int c, double **matrizA, double **matrizB, double **matrizResta);
+void restaDeMatrices(uint8_t f, uint8_t c, double **matrizA, double **matrizB, double **matrizResta);
 
-void productoDeMatrices(int filA, int columB, int n, double **A, double **B, double **P);
+void productoDeMatrices(uint8_t filA, uint8_t columB, uint8_t n, double **A, double **B, double **P);
 
-void matrizPorEscalar(double n, int f, int c, double **m, double **p);
+void matrizPorEscalar(double n, uint8_t f, uint8_t c, double **m, double **p);
 
-void identidad(int n, double **m);	
+void identidad(uint8_t n, double **m);	
 
-void guardarMatriz(double **matriz, int f, int c, const char *nombreArchivo);
+void guardarMatriz(double **matriz, uint8_t f, uint8_t c, const char *nombreArchivo);
 
-void cargarMatriz(const char *nombreArchivo, double ***matriz, int *f, int *c);
+void cargarMatriz(const char *nombreArchivo, double ***matriz, uint8_t *f, uint8_t *c);
 
-double calcularDeterminante(int n, double **matriz);
+double calcularDeterminante(uint8_t n, double **matriz);
 
-void transponerMatriz(double **matriz, double **transpuesta, int filas, int columnas);
+void transponerMatriz(double **matriz, double **transpuesta, uint8_t filas, uint8_t columnas);
 
-void calcularAdjunta(int n, double **matriz, double **adjunta);
+void calcularAdjunta(uint8_t n, double **matriz, double **adjunta);
 
-void invertirMatriz(int n, double determinante, double** matriz, double** transpuesta, double** adjunta, double** inversa);
+void invertirMatriz(uint8_t n, double determinante, double** matriz, double** transpuesta, double** adjunta, double** inversa);
