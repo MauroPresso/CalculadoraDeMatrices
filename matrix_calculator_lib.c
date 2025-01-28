@@ -1,13 +1,14 @@
 #include "matrix_calculator_lib.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdint.h>
 #include <windows.h>
 
 // Función para crear una matriz dinámica de tamaño filas x columnas
-double** crearMatriz(int filas, int columnas) 
+double** crearMatriz(uint8_t filas, uint8_t columnas) 
 {
     double **matriz = (double **)malloc(filas * sizeof(double *));
-    for (int i = 0; i < filas; i++) 
+    for (uint8_t i = 0; i < filas; i++) 
 	{
         matriz[i] = (double *)malloc(columnas * sizeof(double));
     }
@@ -15,24 +16,24 @@ double** crearMatriz(int filas, int columnas)
 }
 
 // Función para liberar la memoria de una matriz
-void liberarMatriz(double **matriz, int filas) 
+void liberarMatriz(double **matriz, uint8_t filas) 
 {
-    for (int i = 0; i < filas; i++) 
+    for (uint8_t i = 0; i < filas; i++) 
 	{
         free(matriz[i]);
     }
     free(matriz);
 }
 
-void mostrarMatriz(int f, int c, double **m)
+void mostrarMatriz(uint8_t f, uint8_t c, double **m)
 {
-	for(int i = 0 ; i < f ; i++)
+	for(uint8_t i = 0 ; i < f ; i++)
 	{
-		for(int j = 0 ; j < c ; j++)
+		for(uint8_t j = 0 ; j < c ; j++)
 		{
 			if(m[i][j]==0)
 			{
-				printf("%0.4lf\t",0.000000);
+				printf("%0.4lf\t",0.0000);
 			}
 			else
 			{
@@ -43,48 +44,48 @@ void mostrarMatriz(int f, int c, double **m)
 	}
 }
 
-void llenarMatriz(int f, int c, double **m)
+void llenarMatriz(uint8_t f, uint8_t c, double **m)
 {
-	for(int i = 0 ; i < f ; i++)
+	for(uint8_t i = 0 ; i < f ; i++)
 	{
-		for(int j = 0 ; j < c ; j++)
+		for(uint8_t j = 0 ; j < c ; j++)
 		{
-			printf("\nIngrese valor para M[%d][%d]: ",i+1,j+1);
+			printf("\nIngrese valor para M[%hhu][%hhu]: ",i+1,j+1);
 			scanf("%lf",&m[i][j]);
 		}
 	}
 }
 
-void sumaDeMatrices(int f, int c, double **matrizA, double **matrizB, double **matrizSuma)
+void sumaDeMatrices(uint8_t f, uint8_t c, double **matrizA, double **matrizB, double **matrizSuma)
 {
-	for(int i=0;i<f;i++)
+	for(uint8_t i=0;i<f;i++)
 	{
-		for(int j=0;j<c;j++)
+		for(uint8_t j=0;j<c;j++)
 		{
 			matrizSuma[i][j]=matrizA[i][j]+matrizB[i][j];
 		}
 	}
 }
 
-void restaDeMatrices(int f, int c, double **matrizA, double **matrizB, double **matrizResta)
+void restaDeMatrices(uint8_t f, uint8_t c, double **matrizA, double **matrizB, double **matrizResta)
 {
-	for(int i=0;i<f;i++)
+	for(uint8_t i=0;i<f;i++)
 	{
-		for(int j=0;j<c;j++)
+		for(uint8_t j=0;j<c;j++)
 		{
 			matrizResta[i][j]=matrizA[i][j]-matrizB[i][j];
 		}
 	}
 }
 
-void productoDeMatrices(int filA, int columB, int n, double **matrizA, double **matrizB, double **matrizProducto) 
+void productoDeMatrices(uint8_t filA, uint8_t columB, uint8_t n, double **matrizA, double **matrizB, double **matrizProducto) 
 {
-	for (int i = 0; i < filA; i++) 
+	for (uint8_t i = 0; i < filA; i++) 
 	{
-		for (int j = 0; j < columB; j++) 
+		for (uint8_t j = 0; j < columB; j++) 
 		{
 			matrizProducto[i][j] = 0;
-			for (int k = 0; k < n; k++) 
+			for (uint8_t k = 0; k < n; k++) 
 			{
 				matrizProducto[i][j] = matrizProducto[i][j] + matrizA[i][k] * matrizB[k][j];
 			}
@@ -92,22 +93,22 @@ void productoDeMatrices(int filA, int columB, int n, double **matrizA, double **
 	}
 }
 
-void matrizPorEscalar(double n, int f, int c, double **m, double **p)
+void matrizPorEscalar(double n, uint8_t f, uint8_t c, double **m, double **p)
 {
-	for(int i=0;i<f;i++)
+	for(uint8_t i=0;i<f;i++)
 	{
-		for(int j=0;j<c;j++)
+		for(uint8_t j=0;j<c;j++)
 		{
 			p[i][j]=n*m[i][j];
 		}
 	}
 }
 
-void identidad(int n, double **m)
+void identidad(uint8_t n, double **m)
 {
-	for(int i=0;i<n;i++)
+	for(uint8_t i=0;i<n;i++)
 	{
-		for(int j=0;j<n;j++)
+		for(uint8_t j=0;j<n;j++)
 		{
 			if(i==j)
 			{
@@ -121,7 +122,7 @@ void identidad(int n, double **m)
 	}
 }
 
-void guardarMatriz(double **matriz, int f, int c, const char *nombreArchivo)
+void guardarMatriz(double **matriz, uint8_t f, uint8_t c, const char *nombreArchivo)
 {
 	FILE *archivo;
 	archivo=fopen(nombreArchivo,"wt");
@@ -132,11 +133,11 @@ void guardarMatriz(double **matriz, int f, int c, const char *nombreArchivo)
 		exit(1); // Sale del programa.
 	}
 	// Escribir las dimensiones de la matriz en el archivo
-	fprintf(archivo, "%d %d\n", f, c);
+	fprintf(archivo, "%hhu %hhu\n", f, c);
 	// Escribir los elementos de la matriz en el archivo
-	for (int i = 0; i < f; i++) 
+	for (uint8_t i = 0; i < f; i++) 
 	{
-		for (int j = 0; j < c; j++) 
+		for (uint8_t j = 0; j < c; j++) 
 		{
 			fprintf(archivo, "%lf ", matriz[i][j]);
 		}
@@ -145,7 +146,7 @@ void guardarMatriz(double **matriz, int f, int c, const char *nombreArchivo)
 	fclose(archivo);
 }
 
-void cargarMatriz(const char *nombreArchivo, double ***matriz, int *f, int *c)
+void cargarMatriz(const char *nombreArchivo, double ***matriz, uint8_t *f, uint8_t *c)
 {
 	FILE *archivo = fopen(nombreArchivo, "rt");
 	if (archivo == NULL) 
@@ -155,17 +156,17 @@ void cargarMatriz(const char *nombreArchivo, double ***matriz, int *f, int *c)
 		exit(EXIT_FAILURE);
 	}
 	// Leer el número de filas y columnas desde el archivo
-	fscanf(archivo, "%d %d", f, c);
+	fscanf(archivo, "%hhu %hhu", f, c);
 	// Asignar memoria para la matriz
 	(*matriz) = (double **)malloc(*f * sizeof(double *));
-	for (int i = 0; i < *f; i++) 
+	for (uint8_t i = 0; i < *f; i++) 
 	{
 		(*matriz)[i] = (double *)malloc(*c * sizeof(double));
 	}
 	// Leer los elementos de la matriz desde el archivo
-	for (int i = 0; i < *f; i++) 
+	for (uint8_t i = 0; i < *f; i++) 
 	{
-		for (int j = 0; j < *c; j++) 
+		for (uint8_t j = 0; j < *c; j++) 
 		{
 			fscanf(archivo, "%lf", &(*matriz)[i][j]);
 		}
@@ -174,7 +175,7 @@ void cargarMatriz(const char *nombreArchivo, double ***matriz, int *f, int *c)
 	fclose(archivo);
 }
 
-double calcularDeterminante(int n, double **matriz)
+double calcularDeterminante(uint8_t n, double **matriz)
 {
 	if (n == 1) 
 	{
@@ -187,7 +188,7 @@ double calcularDeterminante(int n, double **matriz)
 	else 
 	{
 		double determinante = 0;
-		int h, i, j;
+		uint8_t h, i, j;
 		// SUBMATRIZ.
 		double **submatriz = crearMatriz((n-1), (n-1));
 		// Representa la submatriz que se obtiene al eliminar la primera fila y la columna h de la matriz original. 
@@ -230,18 +231,18 @@ double calcularDeterminante(int n, double **matriz)
 }
 
 // Función para calcular la transpuesta de una matriz de tamaño filas x columnas
-void transponerMatriz(double **matriz, double **transpuesta, int filas, int columnas) 
+void transponerMatriz(double **matriz, double **transpuesta, uint8_t filas, uint8_t columnas) 
 {
-    for (int i = 0; i < filas; i++) 
+    for (uint8_t i = 0; i < filas; i++) 
 	{
-        for (int j = 0; j < columnas; j++) 
+        for (uint8_t j = 0; j < columnas; j++) 
 		{
             transpuesta[j][i] = matriz[i][j];
         }
     }
 }
 
-void calcularAdjunta(int n, double **matriz, double **adjunta) 
+void calcularAdjunta(uint8_t n, double **matriz, double **adjunta) 
 {
     if (n == 1) 
 	{
@@ -250,9 +251,9 @@ void calcularAdjunta(int n, double **matriz, double **adjunta)
     }
 	// SUBMATRIZ.
 	double **submatriz = crearMatriz(n - 1, n - 1);
-    int i,j,h;
-	int sub_i,sub_j;
-	int fila,columna;
+    uint8_t i,j,h;
+	uint8_t sub_i,sub_j;
+	uint8_t fila,columna;
 	for (i = 0; i < n; i++) 
 	{
         for (j = 0; j < n; j++) 
@@ -290,7 +291,7 @@ void calcularAdjunta(int n, double **matriz, double **adjunta)
     liberarMatriz(submatriz, n - 1);
 }
 
-void invertirMatriz(int n, double determinante, double** matriz, double** transpuesta, double** adjunta, double** inversa)
+void invertirMatriz(uint8_t n, double determinante, double** matriz, double** transpuesta, double** adjunta, double** inversa)
 {
 	transponerMatriz(matriz,transpuesta,n,n);
 	calcularAdjunta(n,transpuesta,adjunta);
