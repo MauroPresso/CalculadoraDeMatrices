@@ -5,7 +5,8 @@
 #include "calculation_options_lib.h"
 
 
-void mostrarMenu() {
+void mostrarMenu() 
+{
     printf("\n========== CALCULADORA DE MATRICES ==========\n");
     printf("Por favor, selecciona una opción:\n");
     printf("\n--- Operaciones Básicas ---\n");
@@ -31,7 +32,8 @@ void mostrarMenu() {
 
 int obtenerOpcion() {
     int opcion;
-    if (scanf("%d", &opcion) != 1) {
+    if (scanf("%d", &opcion) != 1) 
+	{
         printf("\nError: Entrada no válida. Intenta de nuevo.\n");
         while (getchar() != '\n'); // Limpiar el buffer
         return -1; // Retorna -1 para indicar error
@@ -39,14 +41,16 @@ int obtenerOpcion() {
     return opcion;
 }
 
-int main() {
+int main() 
+{
     int opcion;
 
     do {
         mostrarMenu();
         opcion = obtenerOpcion();
 
-        switch (opcion) {
+        switch (opcion) 
+		{
             case 1:
                 printf("\n[Operación seleccionada] Suma de matrices.\n");
                 // Llamar a la función correspondiente
