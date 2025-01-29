@@ -4,43 +4,6 @@
 #include "matrix_calculator_lib.h"
 #include "calculation_options_lib.h"
 
-
-void mostrarMenu() 
-{
-    printf("\n========== CALCULADORA DE MATRICES ==========\n");
-    printf("Por favor, selecciona una opción:\n");
-    printf("\n--- Operaciones Básicas ---\n");
-    printf("1. Sumar dos matrices\n");
-    printf("2. Restar dos matrices\n");
-    printf("3. Multiplicar dos matrices\n");
-    printf("4. Multiplicar matriz por escalar\n");
-    
-    printf("\n--- Operaciones Avanzadas ---\n");
-    printf("5. Calcular determinante\n");
-    printf("6. Calcular matriz transpuesta\n");
-    printf("7. Calcular matriz adjunta\n");
-    printf("8. Calcular matriz inversa\n");
-
-    printf("\n--- Operaciones con Archivos ---\n");
-    printf("9. Guardar matriz en un archivo\n");
-    printf("10. Cargar matriz desde un archivo\n");
-
-    printf("\n0. Salir\n");
-    printf("\n=============================================\n");
-    printf("Tu selección: ");
-}
-
-int obtenerOpcion() {
-    int opcion;
-    if (scanf("%d", &opcion) != 1) 
-	{
-        printf("\nError: Entrada no válida. Intenta de nuevo.\n");
-        while (getchar() != '\n'); // Limpiar el buffer
-        return -1; // Retorna -1 para indicar error
-    }
-    return opcion;
-}
-
 int main() 
 {
     int opcion;
