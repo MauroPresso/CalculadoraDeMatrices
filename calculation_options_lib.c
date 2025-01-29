@@ -1,103 +1,176 @@
-#include "matrix_calculator_lib.h"
-#include "calculation_options_lib.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <windows.h>
+#include "matrix_calculator_lib.h"
+#include "calculation_options_lib.h"
 
-char option_selector(char* op)
+void mostrarMenu() 
 {
-    do{
-		printf("\n\nSr Usuario, ingrese que operacion desea realizar:\na. Suma de matrices.\nb. Resta de matrices.\nc. Multiplicacion entre matrices.\nd. Multiplicacion entre matriz y un escalar.\ne. Matriz identidad.\nf. Determinante de una matriz.\ng. Matriz Transpuesta.\nh. Matriz Adjunta.\ni. Matriz Inversa.\nj. Salir del programa\n\n");
-		scanf("%c",&op);
-		fflush(stdin);
-		if(op!='a' && op!='b' && op!='c' && op!='d' && op!='e' && op!='f' && op!='g')
-		{
-            Beep(900,500);
-		}
-	} while(op!='a' && op!='b' && op!='c' && op!='d' && op!='e' && op!='f' && op!='g' && op!='h' && op!='i' && op!='j');
-    return op;
+    printf("\n========== CALCULADORA DE MATRICES ==========\n");
+    printf("Por favor, selecciona una opción:\n");
+    printf("\n--- Operaciones Básicas ---\n");
+    printf("1. Sumar dos matrices\n");
+    printf("2. Restar dos matrices\n");
+    printf("3. Multiplicar dos matrices\n");
+    printf("4. Multiplicar matriz por escalar\n");
+    
+    printf("\n--- Operaciones Avanzadas ---\n");
+    printf("5. Calcular determinante\n");
+    printf("6. Calcular matriz transpuesta\n");
+    printf("7. Calcular matriz adjunta\n");
+    printf("8. Calcular matriz inversa\n");
+
+    printf("\n--- Operaciones con Archivos ---\n");
+    printf("9. Guardar matriz en un archivo\n");
+    printf("10. Cargar matriz desde un archivo\n");
+
+    printf("\n0. Salir\n");
+    printf("\n=============================================\n");
+    printf("Tu selección: ");
 }
 
-int ask_for_saving(int* preguntaGuardar)
-{
-   
-	do{
-		printf("\nSr Usuario: si usted desea usted GUARDAR la matriz resultado en un archivo, ingrese '1'. Caso contrario, ingrese '0': ");
-		scanf("%d",&preguntaGuardar);
-		fflush(stdin);
-		printf("\nADVERTENCIA: Solo se puede GUARDAR en un archivo la matriz resultado.");
-		Beep(900,500);
-		if(preguntaGuardar!=0 && preguntaGuardar!=1)
-		{
-			Beep(900,500);
-		}
-	} while(preguntaGuardar!=0 && preguntaGuardar!=1);
-    return preguntaGuardar;
+int obtenerOpcion() {
+    int opcion;
+    if (scanf("%d", &opcion) != 1) 
+	{
+        printf("\nError: Entrada no válida. Intenta de nuevo.\n");
+        while (getchar() != '\n'); // Limpiar el buffer
+        return -1; // Retorna -1 para indicar error
+    }
+    return opcion;
 }
 
-void opcion_suma(int preguntaGuardar)
-{
-    banderaPositivos=0;
-	do{
-		printf("\nADVERTENCIA: Si desea CARGAR la matriz resultado de un archivo mas adelante, la cantidad de filas y de columnas de las matrices a sumar deben coincidir con las dimensiones de la matriz resultado del archivo.");
-		Beep(900,500);
-		printf("\nIngrese el numero de filas: ");
-		scanf("%d",&filas); 
-		printf("Ingrese el numero de columnas: ");
-		scanf("%d",&columnas);
-		if(filas>0 && columnas>0)
-        {
-			banderaPositivos=1;
-		}
-		else
-        {
-			printf("\nEl numero de filas y de columnas deben ser positivos\n");
-		    Beep(900,500);
-		}
-	} while(banderaPositivos==0);
-	printf("\n\n");
-	// MATRIZ A.
-	double **A = crearMatriz(filas, columnas);
-	// MATRIZ B.
-	double **B = crearMatriz(filas, columnas);
-	// MATRIZ R.
-	double **R = crearMatriz(filas, columnas);
-	// Pregunta si quiere cargar.
-	do{
-		printf("\nSr Usuario: si usted desea usted CARGAR la matriz resultado de un archivo ahora, ingrese '1'. Caso contrario, ingrese '0': ");
-		Beep(900,500);
-		scanf("%d",&preguntaCargar);
-		fflush(stdin);
-		if(preguntaCargar!=0 && preguntaCargar!=1)
-		{
-			Beep(900,500);
-		}
-	} while(preguntaCargar!=0 && preguntaCargar!=1);
-	if(preguntaCargar==0)
-	{
-		printf("\nIngrese los coeficientes para la matriz A:\n");
-		llenarMatriz(filas,columnas,A);
-	}
-	if(preguntaCargar==1)
-	{
-		cargarMatriz("matrizResultado.txt",&A,&filas,&columnas);
-	}
-	//llamar a sus funciones
-	printf("\nIngrese los coeficientes para la matriz B:\n");
-	llenarMatriz(filas,columnas,B);
-	printf("\nMatriz A:\n");
-	mostrarMatriz(filas,columnas,A);
-	printf("\nMatriz B:\n");
-	mostrarMatriz(filas,columnas,B);
-	sumaDeMatrices(filas,columnas,A,B,R);
-	printf("\nMatriz SUMA:\n");
-	mostrarMatriz(filas,columnas,R);
-	if(preguntaGuardar==1)
-	{
-		guardarMatriz(R,filas,columnas,"matrizResultado.txt");
-	}
-	// Libero memoria dinámica
-	liberarMatriz(A, filas);
-    liberarMatriz(B, filas);
-	liberarMatriz(R, filas);
+// Implementaciones de las opciones
+
+void handle_matrix_addition() {
+    printf("\n--- Suma de Matrices ---\n");
+
+    uint8_t rows, cols;
+    printf("Ingresa el número de filas: ");
+    scanf("%hhu", &rows);
+    printf("Ingresa el número de columnas: ");
+    scanf("%hhu", &cols);
+
+    int** matrix_a = create_matrix(rows, cols);
+    int** matrix_b = create_matrix(rows, cols);
+
+    printf("\nIngresa los elementos de la primera matriz:\n");
+    input_matrix(matrix_a, rows, cols);
+    printf("\nIngresa los elementos de la segunda matriz:\n");
+    input_matrix(matrix_b, rows, cols);
+
+    int** result = add_matrices(matrix_a, matrix_b, rows, cols);
+
+    printf("\nResultado de la suma:\n");
+    print_matrix(result, rows, cols);
+
+    free_matrix(matrix_a, rows);
+    free_matrix(matrix_b, rows);
+    free_matrix(result, rows);
+}
+
+void handle_matrix_subtraction() {
+    printf("\n--- Resta de Matrices ---\n");
+
+    uint8_t rows, cols;
+    printf("Ingresa el número de filas: ");
+    scanf("%hhu", &rows);
+    printf("Ingresa el número de columnas: ");
+    scanf("%hhu", &cols);
+
+    int** matrix_a = create_matrix(rows, cols);
+    int** matrix_b = create_matrix(rows, cols);
+
+    printf("\nIngresa los elementos de la primera matriz:\n");
+    input_matrix(matrix_a, rows, cols);
+    printf("\nIngresa los elementos de la segunda matriz:\n");
+    input_matrix(matrix_b, rows, cols);
+
+    int** result = subtract_matrices(matrix_a, matrix_b, rows, cols);
+
+    printf("\nResultado de la resta:\n");
+    print_matrix(result, rows, cols);
+
+    free_matrix(matrix_a, rows);
+    free_matrix(matrix_b, rows);
+    free_matrix(result, rows);
+}
+
+void handle_matrix_multiplication() {
+    printf("\n--- Multiplicación de Matrices ---\n");
+
+    uint8_t rows_a, cols_a, rows_b, cols_b;
+    printf("Ingresa el número de filas de la primera matriz: ");
+    scanf("%hhu", &rows_a);
+    printf("Ingresa el número de columnas de la primera matriz: ");
+    scanf("%hhu", &cols_a);
+
+    printf("\nIngresa el número de filas de la segunda matriz: ");
+    scanf("%hhu", &rows_b);
+    printf("Ingresa el número de columnas de la segunda matriz: ");
+    scanf("%hhu", &cols_b);
+
+    if (cols_a != rows_b) {
+        printf("\nError: El número de columnas de la primera matriz debe ser igual al número de filas de la segunda matriz.\n");
+        return;
+    }
+
+    int** matrix_a = create_matrix(rows_a, cols_a);
+    int** matrix_b = create_matrix(rows_b, cols_b);
+
+    printf("\nIngresa los elementos de la primera matriz:\n");
+    input_matrix(matrix_a, rows_a, cols_a);
+    printf("\nIngresa los elementos de la segunda matriz:\n");
+    input_matrix(matrix_b, rows_b, cols_b);
+
+    int** result = multiply_matrices(matrix_a, rows_a, cols_a, matrix_b, rows_b, cols_b);
+
+    printf("\nResultado de la multiplicación:\n");
+    print_matrix(result, rows_a, cols_b);
+
+    free_matrix(matrix_a, rows_a);
+    free_matrix(matrix_b, rows_b);
+    free_matrix(result, rows_a);
+}
+
+void handle_matrix_transpose() {
+    printf("\n--- Transponer una Matriz ---\n");
+
+    uint8_t rows, cols;
+    printf("Ingresa el número de filas: ");
+    scanf("%hhu", &rows);
+    printf("Ingresa el número de columnas: ");
+    scanf("%hhu", &cols);
+
+    int** matrix = create_matrix(rows, cols);
+
+    printf("\nIngresa los elementos de la matriz:\n");
+    input_matrix(matrix, rows, cols);
+
+    int** result = transpose_matrix(matrix, rows, cols);
+
+    printf("\nResultado de la transposición:\n");
+    print_matrix(result, cols, rows);
+
+    free_matrix(matrix, rows);
+    free_matrix(result, cols);
+}
+
+void handle_matrix_determinant() {
+    printf("\n--- Determinante de una Matriz ---\n");
+
+    uint8_t size;
+    printf("Ingresa el tamaño de la matriz (cuadrada): ");
+    scanf("%hhu", &size);
+
+    int** matrix = create_matrix(size, size);
+
+    printf("\nIngresa los elementos de la matriz:\n");
+    input_matrix(matrix, size, size);
+
+    int determinant = calculate_determinant(matrix, size);
+
+    printf("\nEl determinante de la matriz es: %d\n", determinant);
+
+    free_matrix(matrix, size);
 }
