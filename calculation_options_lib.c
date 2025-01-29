@@ -51,22 +51,22 @@ void handle_matrix_addition() {
     printf("Ingresa el número de columnas: ");
     scanf("%hhu", &cols);
 
-    int** matrix_a = create_matrix(rows, cols);
-    int** matrix_b = create_matrix(rows, cols);
+    double** matrix_a = crearMatriz(rows, cols);
+    double** matrix_b = crearMatriz(rows, cols);
 
     printf("\nIngresa los elementos de la primera matriz:\n");
-    input_matrix(matrix_a, rows, cols);
+    llenarMatriz(matrix_a, rows, cols);
     printf("\nIngresa los elementos de la segunda matriz:\n");
-    input_matrix(matrix_b, rows, cols);
+    llenarMatriz(matrix_b, rows, cols);
 
-    int** result = add_matrices(matrix_a, matrix_b, rows, cols);
+    double** result = sumaDeMatrices(matrix_a, matrix_b, rows, cols);
 
     printf("\nResultado de la suma:\n");
-    print_matrix(result, rows, cols);
+    mostrarMatriz(result, rows, cols);
 
-    free_matrix(matrix_a, rows);
-    free_matrix(matrix_b, rows);
-    free_matrix(result, rows);
+    liberarMatriz(matrix_a, rows);
+    liberarMatriz(matrix_b, rows);
+    liberarMatriz(result, rows);
 }
 
 void handle_matrix_subtraction() {
@@ -78,22 +78,22 @@ void handle_matrix_subtraction() {
     printf("Ingresa el número de columnas: ");
     scanf("%hhu", &cols);
 
-    int** matrix_a = create_matrix(rows, cols);
-    int** matrix_b = create_matrix(rows, cols);
+    double** matrix_a = crearMatriz(rows, cols);
+    double** matrix_b = crearMatriz(rows, cols);
 
     printf("\nIngresa los elementos de la primera matriz:\n");
-    input_matrix(matrix_a, rows, cols);
+    llenarMatriz(matrix_a, rows, cols);
     printf("\nIngresa los elementos de la segunda matriz:\n");
-    input_matrix(matrix_b, rows, cols);
+    llenarMatriz(matrix_b, rows, cols);
 
-    int** result = subtract_matrices(matrix_a, matrix_b, rows, cols);
+    double** result = restaDeMatrices(matrix_a, matrix_b, rows, cols);
 
     printf("\nResultado de la resta:\n");
-    print_matrix(result, rows, cols);
+    mostrarMatriz(result, rows, cols);
 
-    free_matrix(matrix_a, rows);
-    free_matrix(matrix_b, rows);
-    free_matrix(result, rows);
+    liberarMatriz(matrix_a, rows);
+    liberarMatriz(matrix_b, rows);
+    liberarMatriz(result, rows);
 }
 
 void handle_matrix_multiplication() {
@@ -115,22 +115,22 @@ void handle_matrix_multiplication() {
         return;
     }
 
-    int** matrix_a = create_matrix(rows_a, cols_a);
-    int** matrix_b = create_matrix(rows_b, cols_b);
+    double** matrix_a = crearMatriz(rows_a, cols_a);
+    double** matrix_b = crearMatriz(rows_b, cols_b);
 
     printf("\nIngresa los elementos de la primera matriz:\n");
-    input_matrix(matrix_a, rows_a, cols_a);
+    llenarMatriz(matrix_a, rows_a, cols_a);
     printf("\nIngresa los elementos de la segunda matriz:\n");
-    input_matrix(matrix_b, rows_b, cols_b);
+    llenarMatriz(matrix_b, rows_b, cols_b);
 
-    int** result = multiply_matrices(matrix_a, rows_a, cols_a, matrix_b, rows_b, cols_b);
+    double** result = productoDeMatrices(matrix_a, rows_a, cols_a, matrix_b, rows_b, cols_b);
 
     printf("\nResultado de la multiplicación:\n");
-    print_matrix(result, rows_a, cols_b);
+    mostrarMatriz(result, rows_a, cols_b);
 
-    free_matrix(matrix_a, rows_a);
-    free_matrix(matrix_b, rows_b);
-    free_matrix(result, rows_a);
+    liberarMatriz(matrix_a, rows_a);
+    liberarMatriz(matrix_b, rows_b);
+    liberarMatriz(result, rows_a);
 }
 
 void handle_matrix_transpose() {
@@ -142,18 +142,18 @@ void handle_matrix_transpose() {
     printf("Ingresa el número de columnas: ");
     scanf("%hhu", &cols);
 
-    int** matrix = create_matrix(rows, cols);
+    double** matrix = crearMatriz(rows, cols);
 
     printf("\nIngresa los elementos de la matriz:\n");
-    input_matrix(matrix, rows, cols);
+    llenarMatriz(matrix, rows, cols);
 
-    int** result = transpose_matrix(matrix, rows, cols);
+    double** result = transponerMatriz(matrix, rows, cols);
 
     printf("\nResultado de la transposición:\n");
-    print_matrix(result, cols, rows);
+    mostrarMatriz(result, cols, rows);
 
-    free_matrix(matrix, rows);
-    free_matrix(result, cols);
+    liberarMatriz(matrix, rows);
+    liberarMatriz(result, cols);
 }
 
 void handle_matrix_determinant() {
@@ -163,14 +163,14 @@ void handle_matrix_determinant() {
     printf("Ingresa el tamaño de la matriz (cuadrada): ");
     scanf("%hhu", &size);
 
-    int** matrix = create_matrix(size, size);
+    double** matrix = crearMatriz(size, size);
 
     printf("\nIngresa los elementos de la matriz:\n");
-    input_matrix(matrix, size, size);
+    llenarMatriz(matrix, size, size);
 
-    int determinant = calculate_determinant(matrix, size);
+    double determinant = calcularDeterminante(matrix, size);
 
     printf("\nEl determinante de la matriz es: %d\n", determinant);
 
-    free_matrix(matrix, size);
+    liberarMatriz(matrix, size);
 }
