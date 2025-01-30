@@ -99,7 +99,11 @@ void handle_matrix_subtraction() {
 void handle_matrix_multiplication() 
 {
     printf("\n--- Multiplicación de Matrices ---\n");
+    
+    uint8_t rows_a, N, cols_b;
     uint8_t askCharging;
+    char chargingPlace;
+    
     do{
         printf("Ingrese si desea cargar la matriz resultado del archivo\n1: 'SI'\n0: 'NO'\nSu eleccion:\t");
         scanf("%hhu", &askCharging);
@@ -108,7 +112,7 @@ void handle_matrix_multiplication()
             printf("\nSr Usuario, se le explico claramente que debe seleccionar:\n'1' si desea cargar la matriz del archivo y '0' si no desea cargarla.\nSin lugar a dudas ¡A usted no le funciona la materia gris!\n");
         }
     }while(askCharging != 1 && askCharging != 0);
-    uint8_t rows_a, N, cols_b;
+    
     if(askCharging == 0) // NO desea CARGAR.
     {
         do{
@@ -136,12 +140,10 @@ void handle_matrix_multiplication()
             {
                 printf("\nSr Usuario: El numero de columnas de una matriz es estrictamente positivo.\nSin lugar a dudas, ¡Usted es retrasado!\n");
             }
-        }while(cols_b == 0);
-        
+        }while(cols_b == 0); 
     }
     if(askCharging == 1) // SI desea CARGAR.
     {
-        char chargingPlace;
         do{
             printf("\nIngrese donde desea cargar la matriz del archivo:\nA: Matriz A\nB: Matriz B:\nSu eleccion:\t");
             scanf("%c", &chargingPlace);
