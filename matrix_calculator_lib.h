@@ -21,6 +21,8 @@ void identidad(uint8_t n, double **m);
 
 void guardarMatriz(double **matriz, uint8_t f, uint8_t c, const char *nombreArchivo);
 
+void leerDimensionesMatriz(const char *nombreArchivo, uint8_t *f, uint8_t *c);
+
 void cargarMatriz(const char *nombreArchivo, double ***matriz, uint8_t *f, uint8_t *c);
 
 double calcularDeterminante(uint8_t n, double **matriz);
