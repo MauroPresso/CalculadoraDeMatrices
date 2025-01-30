@@ -111,7 +111,7 @@ void handle_matrix_multiplication()
         scanf("%hhu", &askCharging);
         if(askCharging != 1 && askCharging != 0)
         {
-            printf("\nSr Usuario, se le explico claramente que debe seleccionar:\n'1' si desea cargar la matriz del archivo y '0' si no desea cargarla.\nSin lugar a dudas ¡A usted no le funciona la materia gris!\n");
+            printf("\nSr Usuario, se le explico claramente que debe seleccionar:\n'1' si desea cargar la matriz del archivo y '0' si no desea cargarla.\nSin lugar a dudas, ¡A usted no le funciona la materia gris!\n");
         }
     }while(askCharging != 1 && askCharging != 0);
     
@@ -168,7 +168,7 @@ void handle_matrix_multiplication()
             scanf(" %c", &chargingPlace);
             if(chargingPlace != 'A' && chargingPlace != 'B')
             {
-                printf("\nSr Usuario, se le explico claramente que debe seleccionar:\n'A' si desea cargar la matriz del archivo en la matriz A y 'B' si  desea cargar la matriz del archivo en la matriz B.\nSin lugar a dudas ¡A usted no le funciona la materia gris!\n");
+                printf("\nSr Usuario, se le explico claramente que debe seleccionar:\n'A' si desea cargar la matriz del archivo en la matriz A y 'B' si  desea cargar la matriz del archivo en la matriz B.\nSin lugar a dudas, ¡A usted no le funciona la materia gris!\n");
             }
         }while(chargingPlace != 'A' && chargingPlace != 'B');
         
