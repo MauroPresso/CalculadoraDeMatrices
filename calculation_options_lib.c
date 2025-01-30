@@ -30,8 +30,8 @@ void mostrarMenu()
 }
 
 int obtenerOpcion() {
-    int opcion;
-    if (scanf("%d", &opcion) != 1) 
+    uint8_t opcion;
+    if (scanf("%hhu", &opcion) != 1) 
 	{
         printf("\nError: Entrada no válida. Intenta de nuevo.\n");
         while (getchar() != '\n'); // Limpiar el buffer
@@ -96,40 +96,121 @@ void handle_matrix_subtraction() {
     liberarMatriz(result, rows);
 }
 
-void handle_matrix_multiplication() {
+void handle_matrix_multiplication() 
+{
     printf("\n--- Multiplicación de Matrices ---\n");
-
-    uint8_t rows_a, cols_a, rows_b, cols_b;
-    printf("Ingresa el número de filas de la primera matriz: ");
-    scanf("%hhu", &rows_a);
-    printf("Ingresa el número de columnas de la primera matriz: ");
-    scanf("%hhu", &cols_a);
-
-    printf("\nIngresa el número de filas de la segunda matriz: ");
-    scanf("%hhu", &rows_b);
-    printf("Ingresa el número de columnas de la segunda matriz: ");
-    scanf("%hhu", &cols_b);
-
-    if (cols_a != rows_b) {
-        printf("\nError: El número de columnas de la primera matriz debe ser igual al número de filas de la segunda matriz.\n");
-        return;
+    uint8_t askCharging;
+    do{
+        printf("Ingrese si desea cargar la matriz resultado del archivo\n1: 'SI'\n0: 'NO'\nSu eleccion:\t");
+        scanf("%hhu", &askCharging);
+        if(askCharging != 1 && askCharging != 0)
+        {
+            printf("\nSr Usuario, se le explico claramente que debe seleccionar:\n'1' si desea cargar la matriz del archivo y '0' si no desea cargarla.\nSin lugar a dudas ¡A usted no le funciona la materia gris!\n");
+        }
+    }while(askCharging != 1 && askCharging != 0);
+    uint8_t rows_a, N, cols_b;
+    if(askCharging == 0) // NO desea CARGAR.
+    {
+        do{
+            printf("\nIngresa el número de filas de la primera matriz:\t");
+            scanf("%hhu", &rows_a);
+            if(rows_a == 0)
+            {
+                printf("\nSr Usuario: El numero de filas de una matriz es estrictamente positivo.\nSin lugar a dudas, ¡Usted es retrasado!\n");
+            }
+        }while(rows_a == 0);
+        
+        do{
+            printf("\nIngresa el número de columnas de la primera matriz y el número de columnas de la segunda matriz:\t");
+            scanf("%hhu", &N);
+            if(N == 0)
+            {
+                printf("\nSr Usuario: El numero de filas y de columnas de una matriz es estrictamente positivo.\nSin lugar a dudas, ¡Usted es retrasado!\n");
+            }
+        }while(N == 0);
+        
+        do{
+            printf("\nIngresa el número de columnas de la segunda matriz:\t");
+            scanf("%hhu", &cols_b);
+            if(cols_b == 0)
+            {
+                printf("\nSr Usuario: El numero de columnas de una matriz es estrictamente positivo.\nSin lugar a dudas, ¡Usted es retrasado!\n");
+            }
+        }while(cols_b == 0);
+        
+    }
+    if(askCharging == 1) // SI desea CARGAR.
+    {
+        char chargingPlace;
+        do{
+            printf("\nIngrese donde desea cargar la matriz del archivo:\nA: Matriz A\nB: Matriz B:\nSu eleccion:\t");
+            scanf("%c", &chargingPlace);
+            if(chargingPlace != 'A' && chargingPlace != 'B')
+            {
+                printf("\nSr Usuario, se le explico claramente que debe seleccionar:\n'A' si desea cargar la matriz del archivo en la matriz A y 'B' si  desea cargar la matriz del archivo en la matriz B.\nSin lugar a dudas ¡A usted no le funciona la materia gris!\n");
+            }
+        }while(chargingPlace != 'A' && chargingPlace != 'B');
+        if(chargingPlace == 'A')
+        {
+            leerDimensionesMatriz("matrizResultado.txt", &rows_a, &N);
+            printf("\nIngresa el número de columnas de la segunda matriz:\t");
+            scanf("%hhu", &cols_b);
+        }
+        if(chargingPlace == 'B')
+        {
+            printf("\nIngresa el número de filas de la primera matriz:\t");
+            scanf("%hhu", &rows_a);
+            leerDimensionesMatriz("matrizResultado.txt", &N, &cols_b);
+        }
     }
 
-    double** matrix_a = crearMatriz(rows_a, cols_a);
-    double** matrix_b = crearMatriz(rows_b, cols_b);
+    double** matrix_a = crearMatriz(rows_a, N);
+    double** matrix_b = crearMatriz(N, cols_b);
 
-    printf("\nIngresa los elementos de la primera matriz:\n");
-    llenarMatriz(matrix_a, rows_a, cols_a);
-    printf("\nIngresa los elementos de la segunda matriz:\n");
-    llenarMatriz(matrix_b, rows_b, cols_b);
+    if(askCharging == 0)
+    {
+        printf("\nIngresa los elementos de la primera matriz:\n");
+        llenarMatriz(rows_a, N, matrix_a);
+        printf("\nMatriz A:\n");
+        mostrarMatriz(rows_a, N, matrix_a);
+        printf("\nIngresa los elementos de la segunda matriz:\n");
+        llenarMatriz(N, cols_b, matrix_b);
+        printf("\nMatriz B:\n");
+        mostrarMatriz(N, cols_b, matrix_b);
+    }
+    if(askCharging == 1)
+    {
+        if(chargingPlace == 'A')
+        {
+            cargarMatriz("matrizResultado.txt", matrix_a, &rows_a, &N);
+            printf("\nMatriz A:\n");
+            mostrarMatriz(rows_a, N, matrix_a);
+            printf("\nIngresa los elementos de la segunda matriz:\n");
+            llenarMatriz(N, cols_b, matrix_b);
+            printf("\nMatriz B:\n");
+            mostrarMatriz(N, cols_b, matrix_b);
+        }
+        if(chargingPlace == 'B')
+        {
+            printf("\nIngresa los elementos de la primera matriz:\n");
+            llenarMatriz(rows_a, N, matrix_a);
+            printf("\nMatriz A:\n");
+            mostrarMatriz(rows_a, N, matrix_a);
+            cargarMatriz("matrizResultado.txt", matrix_b, &N, &cols_b);
+            printf("\nMatriz B:\n");
+            mostrarMatriz(N, cols_b, matrix_b);
+        }
 
-    double** result = productoDeMatrices(matrix_a, rows_a, cols_a, matrix_b, rows_b, cols_b);
+    }
+    
+    double** result = crearMatriz(rows_a, cols_b);
+    productoDeMatrices(rows_a, cols_b, N, matrix_a, matrix_b, result);
 
     printf("\nResultado de la multiplicación:\n");
-    mostrarMatriz(result, rows_a, cols_b);
+    mostrarMatriz(rows_a, cols_b, result);
 
     liberarMatriz(matrix_a, rows_a);
-    liberarMatriz(matrix_b, rows_b);
+    liberarMatriz(matrix_b, N);
     liberarMatriz(result, rows_a);
 }
 
