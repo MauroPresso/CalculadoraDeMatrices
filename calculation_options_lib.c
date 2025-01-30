@@ -146,7 +146,7 @@ void handle_matrix_multiplication()
     {
         do{
             printf("\nIngrese donde desea cargar la matriz del archivo:\nA: Matriz A\nB: Matriz B:\nSu eleccion:\t");
-            scanf("%c", &chargingPlace);
+            scanf(" %c", &chargingPlace);
             if(chargingPlace != 'A' && chargingPlace != 'B')
             {
                 printf("\nSr Usuario, se le explico claramente que debe seleccionar:\n'A' si desea cargar la matriz del archivo en la matriz A y 'B' si  desea cargar la matriz del archivo en la matriz B.\nSin lugar a dudas ¡A usted no le funciona la materia gris!\n");
