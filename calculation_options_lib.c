@@ -98,12 +98,14 @@ void handle_matrix_subtraction() {
 
 void handle_matrix_multiplication() 
 {
-    printf("\n--- Multiplicación de Matrices ---\n");
+    printf("\n--- Multiplicación de Matrices ---\n"); // Este printf lo agrego solo por estetica.
     
+    // Declaro las variables fuera de las estructuras de control para poder seguir utilizandolas fuera de estas ultimas.
     uint8_t rows_a, N, cols_b;
     uint8_t askCharging;
     char chargingPlace;
     
+    // Pregunta si quiere CARGAR la matriz del archivo.
     do{
         printf("Ingrese si desea cargar la matriz resultado del archivo\n1: 'SI'\n0: 'NO'\nSu eleccion:\t");
         scanf("%hhu", &askCharging);
@@ -115,35 +117,52 @@ void handle_matrix_multiplication()
     
     if(askCharging == 0) // NO desea CARGAR.
     {
+        // Ingresa el numero de filas de la Matriz A.
         do{
-            printf("\nIngresa el número de filas de la primera matriz:\t");
+            printf("\nIngresa el numero de filas de la Matriz A:\t");
             scanf("%hhu", &rows_a);
             if(rows_a == 0)
             {
                 printf("\nSr Usuario: El numero de filas de una matriz es estrictamente positivo.\nSin lugar a dudas, ¡Usted es retrasado!\n");
             }
-        }while(rows_a == 0);
+            if(rows_a > 255)
+            {
+                printf("\nSr Usuario: Esta calculadora soporta como mucho matrices de 255x255. Disculpe los inconvenientes.\n");
+            }
+        }while(rows_a == 0 || rows_a > 255);
         
+        // Ingresa el numero de columnas de la Matriz A y el numero de filas de la Matriz B.
         do{
-            printf("\nIngresa el número de columnas de la primera matriz y el número de columnas de la segunda matriz:\t");
+            printf("\nIngresa el numero de columnas de la Matriz A y el numero de columnas de la Matriz B:\t");
             scanf("%hhu", &N);
             if(N == 0)
             {
                 printf("\nSr Usuario: El numero de filas y de columnas de una matriz es estrictamente positivo.\nSin lugar a dudas, ¡Usted es retrasado!\n");
             }
-        }while(N == 0);
+            if(N > 255)
+            {
+                printf("\nSr Usuario: Esta calculadora soporta como mucho matrices de 255x255. Disculpe los inconvenientes.\n");
+            }
+        }while(N == 0 || N > 255);
         
+        // Ingresa el numero de columnas de la Matriz B.
         do{
-            printf("\nIngresa el número de columnas de la segunda matriz:\t");
+            printf("\nIngresa el numero de columnas de la Matriz B:\t");
             scanf("%hhu", &cols_b);
             if(cols_b == 0)
             {
                 printf("\nSr Usuario: El numero de columnas de una matriz es estrictamente positivo.\nSin lugar a dudas, ¡Usted es retrasado!\n");
             }
-        }while(cols_b == 0); 
+            if(cols_b > 255)
+            {
+                printf("\nSr Usuario: Esta calculadora soporta como mucho matrices de 255x255. Disculpe los inconvenientes.\n");
+            }
+        }while(cols_b == 0 || cols_b > 255); 
     }
+    
     if(askCharging == 1) // SI desea CARGAR.
     {
+        // Pregunta donde quiere CARGAR la matriz.
         do{
             printf("\nIngrese donde desea cargar la matriz del archivo:\nA: Matriz A\nB: Matriz B:\nSu eleccion:\t");
             scanf(" %c", &chargingPlace);
@@ -152,52 +171,91 @@ void handle_matrix_multiplication()
                 printf("\nSr Usuario, se le explico claramente que debe seleccionar:\n'A' si desea cargar la matriz del archivo en la matriz A y 'B' si  desea cargar la matriz del archivo en la matriz B.\nSin lugar a dudas ¡A usted no le funciona la materia gris!\n");
             }
         }while(chargingPlace != 'A' && chargingPlace != 'B');
+        
+        // La matriz proveniente del archivo se carga en la Matriz A.
         if(chargingPlace == 'A')
         {
+            // Lee del archivo las dimensiones de la Matriz A.
             leerDimensionesMatriz("matrizResultado.txt", &rows_a, &N);
-            printf("\nIngresa el número de columnas de la segunda matriz:\t");
-            scanf("%hhu", &cols_b);
+            // Ingresa el numero de columnas de la Matriz B.
+            do{
+                printf("\nIngresa el numero de columnas de la Matriz B:\t");
+                scanf("%hhu", &cols_b);
+                if(cols_b == 0)
+                {
+                    printf("\nSr Usuario: El numero de columnas de una matriz es estrictamente positivo.\nSin lugar a dudas, ¡Usted es retrasado!\n");
+                }
+                if(cols_b > 255)
+                {
+                    printf("\nSr Usuario: Esta calculadora soporta como mucho matrices de 255x255. Disculpe los inconvenientes.\n");
+                }
+            }while(cols_b == 0 || cols_b > 255); 
         }
+        
+        // La matriz proveniente del archivo se carga en la Matriz B.
         if(chargingPlace == 'B')
         {
-            printf("\nIngresa el número de filas de la primera matriz:\t");
-            scanf("%hhu", &rows_a);
+            // Ingresa el numero de filas de la Matriz A.
+            do{
+                printf("\nIngresa el numero de filas de la Matriz A:\t");
+                scanf("%hhu", &rows_a);
+                if(rows_a == 0)
+                {
+                    printf("\nSr Usuario: El numero de filas de una matriz es estrictamente positivo.\nSin lugar a dudas, ¡Usted es retrasado!\n");
+                }
+                if(rows_a > 255)
+                {
+                    printf("\nSr Usuario: Esta calculadora soporta como mucho matrices de 255x255. Disculpe los inconvenientes.\n");
+                }
+            }while(rows_a == 0 || rows_a > 255);
+            // Lee del archivo las dimensiones de la Matriz B.
             leerDimensionesMatriz("matrizResultado.txt", &N, &cols_b);
         }
     }
 
+    // Declaro las Matrices A y B.
     double** matrix_a = crearMatriz(rows_a, N);
     double** matrix_b = crearMatriz(N, cols_b);
 
-    if(askCharging == 0)
+    if(askCharging == 0) // NO desea CARGAR.
     {
-        printf("\nIngresa los elementos de la primera matriz:\n");
+        // Llena y Muestra la Matriz A.
+        printf("\nIngresa los elementos de la Matriz A:\n");
         llenarMatriz(rows_a, N, matrix_a);
         printf("\nMatriz A:\n");
         mostrarMatriz(rows_a, N, matrix_a);
-        printf("\nIngresa los elementos de la segunda matriz:\n");
+        // Llena y Muestra la Matriz B.
+        printf("\nIngresa los elementos de la Matriz B:\n");
         llenarMatriz(N, cols_b, matrix_b);
         printf("\nMatriz B:\n");
         mostrarMatriz(N, cols_b, matrix_b);
     }
-    if(askCharging == 1)
+    
+    if(askCharging == 1) // SI desea CARGAR.
     {
+        // La matriz proveniente del archivo se carga en la Matriz A.
         if(chargingPlace == 'A')
         {
+            // Carga y Muestra la Matriz A.
             cargarMatriz("matrizResultado.txt", matrix_a, &rows_a, &N);
             printf("\nMatriz A:\n");
             mostrarMatriz(rows_a, N, matrix_a);
-            printf("\nIngresa los elementos de la segunda matriz:\n");
+            // Llena y Muestra la Matriz B.
+            printf("\nIngresa los elementos de la Matriz B:\n");
             llenarMatriz(N, cols_b, matrix_b);
             printf("\nMatriz B:\n");
             mostrarMatriz(N, cols_b, matrix_b);
         }
+        
+        // La matriz proveniente del archivo se carga en la Matriz B.
         if(chargingPlace == 'B')
         {
-            printf("\nIngresa los elementos de la primera matriz:\n");
+            // Llena y Muestra la Matriz A.
+            printf("\nIngresa los elementos de la Matriz A:\n");
             llenarMatriz(rows_a, N, matrix_a);
             printf("\nMatriz A:\n");
             mostrarMatriz(rows_a, N, matrix_a);
+            // Carga y Muestra la Matriz B.
             cargarMatriz("matrizResultado.txt", matrix_b, &N, &cols_b);
             printf("\nMatriz B:\n");
             mostrarMatriz(N, cols_b, matrix_b);
@@ -205,12 +263,17 @@ void handle_matrix_multiplication()
 
     }
     
+    // Declaro la Matriz Resultado.
     double** result = crearMatriz(rows_a, cols_b);
+    
+    // Calculo el producto de Matrices.
     productoDeMatrices(rows_a, cols_b, N, matrix_a, matrix_b, result);
 
+    // Muestro la Matriz Resultado.
     printf("\nResultado de la multiplicación:\n");
     mostrarMatriz(rows_a, cols_b, result);
 
+    // Libero la memoria dinamica.
     liberarMatriz(matrix_a, rows_a);
     liberarMatriz(matrix_b, N);
     liberarMatriz(result, rows_a);
