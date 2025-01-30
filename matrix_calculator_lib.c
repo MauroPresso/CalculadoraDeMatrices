@@ -146,6 +146,21 @@ void guardarMatriz(double **matriz, uint8_t f, uint8_t c, const char *nombreArch
 	fclose(archivo);
 }
 
+void leerDimensionesMatriz(const char *nombreArchivo, uint8_t *f, uint8_t *c)
+{
+	FILE *archivo = fopen(nombreArchivo, "rt");
+	if (archivo == NULL) 
+	{
+		Beep(900,500);
+		fprintf(stderr, "No se pudo abrir el archivo %s\n", nombreArchivo);
+		exit(EXIT_FAILURE);
+	}
+	// Leer el número de filas y columnas desde el archivo
+	fscanf(archivo, "%hhu %hhu", f, c);
+	// Cerrar el archivo
+	fclose(archivo);
+}
+
 void cargarMatriz(const char *nombreArchivo, double ***matriz, uint8_t *f, uint8_t *c)
 {
 	FILE *archivo = fopen(nombreArchivo, "rt");
