@@ -5,52 +5,100 @@
 #include "calculation_options_lib.h"
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- //
+// PROCEDIMIENTOS QUE MANEJAN EL MENU DE OPCIONES
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- //
 
-void mostrarMenu() 
+void mostrarMenu(void) 
 {
     printf("\n========== CALCULADORA DE MATRICES ==========\n");
-    printf("Por favor, selecciona una opción:\n");
+    printf("Por favor, seleccione una opción:\n");
     printf("\n--- Operaciones Básicas ---\n");
-    printf("1. Sumar dos matrices\n");
-    printf("2. Restar dos matrices\n");
-    printf("3. Multiplicar dos matrices\n");
-    printf("4. Multiplicar matriz por escalar\n");
+    printf("'1': Sumar dos matrices\n");
+    printf("'2': Restar dos matrices\n");
+    printf("'3': Multiplicar dos matrices\n");
+    printf("'4': Multiplicar matriz por escalar\n");
     
     printf("\n--- Operaciones Avanzadas ---\n");
-    printf("5. Calcular determinante\n");
-    printf("6. Calcular matriz transpuesta\n");
-    printf("7. Calcular matriz adjunta\n");
-    printf("8. Calcular matriz inversa\n");
+    printf("'5': Calcular determinante\n");
+    printf("'6': Calcular matriz transpuesta\n");
+    printf("'7': Calcular matriz adjunta\n");
+    printf("'8': Calcular matriz inversa\n");
 
-    printf("\n--- Operaciones con Archivos ---\n");
-    printf("9. Guardar matriz en un archivo\n");
-    printf("10. Cargar matriz desde un archivo\n");
-
-    printf("\n0. Salir\n");
+    printf("\n'0': Salir\n");
     printf("\n=============================================\n");
-    printf("Tu selección: ");
+    printf("Su elección:\t");
 }
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- //
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- //
 
-int obtenerOpcionMenu() 
+uint8_t obtenerOpcionMenu(void) 
 {
-    int opcion;
-    if (scanf("%d", &opcion) != 1) 
-	{
-        printf("\nError: Entrada no válida. Intenta de nuevo.\n");
-        while (getchar() != '\n'); // Limpiar el buffer
-        return -1; // Retorna -1 para indicar error
-    }
+    uint8_t opcion;
+    do{
+        mostrarMenu();
+        scanf("%hhu", &opcion);
+        if(opcion != 0 && opcion != 1 && opcion != 2 && opcion != 3 && opcion != 4 && opcion != 5 && opcion != 6 && opcion != 7 && opcion != 8)
+        {
+            Beep(900,500);
+            printf("\nSr Usuario: Se le explico claramente que opciones validas podia ingresar para realizar la operacion del menu que usted deseara.\nSin lugar a dudas, ¡A usted no le funciona la materia gris!\n");
+        }
+    }while(opcion != 0 && opcion != 1 && opcion != 2 && opcion != 3 && opcion != 4 && opcion != 5 && opcion != 6 && opcion != 7 && opcion != 8);
     return opcion;
 }
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- //
+// PROCEDIMIENTOS QUE PREGUNTAN ACERCA DEL CARGADO Y EL GUARDADO DE LA MATRIZ RESULTADO
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- //
 
-// Implementaciones de las opciones
+uint8_t preguntaSiCargar(void) // Pregunta si quiere CARGAR la matriz del archivo.
+{
+    uint8_t askCharging;
+    do{
+        printf("Ingrese si desea cargar la matriz resultado del archivo\n1: 'SI'\n0: 'NO'\nSu eleccion:\t");
+        scanf("%hhu", &askCharging);
+        if(askCharging != 1 && askCharging != 0)
+        {
+            Beep(900,500);
+            printf("\nSr Usuario, se le explico claramente que debe seleccionar:\n'1' si desea cargar la matriz del archivo y '0' si no desea cargarla.\nSin lugar a dudas, ¡A usted no le funciona la materia gris!\n");
+        }
+    }while(askCharging != 1 && askCharging != 0);
+    return askCharging;
+}
+
+char preguntaDondeCargar(void)
+{
+    char chargingPlace;
+    do{
+        printf("\nIngrese donde desea cargar la matriz del archivo:\nA: Matriz A\nB: Matriz B:\nSu eleccion:\t");
+        scanf("%c", &chargingPlace);
+        if(chargingPlace != 'A' && chargingPlace != 'B')
+        {
+            Beep(900,500);
+            printf("\nSr Usuario, se le explico claramente que debe seleccionar:\n'A' si desea cargar la matriz del archivo en la matriz A y 'B' si  desea cargar la matriz del archivo en la matriz B.\nSin lugar a dudas, ¡A usted no le funciona la materia gris!\n");
+        }
+    }while(chargingPlace != 'A' && chargingPlace != 'B');
+    return chargingPlace;
+}
+
+uint8_t preguntaSiGuardar(void)
+{
+    uint8_t askSaving;
+    do{
+        printf("Ingrese si desea guardar la matriz resultado en el archivo\n1: 'SI'\n0: 'NO'\nSu eleccion:\t");
+        scanf("%hhu", &askSaving);
+        if(askSaving != 1 && askSaving != 0)
+        {
+            Beep(900,500);
+            printf("\nSr Usuario, se le explico claramente que debe seleccionar:\n'1' si desea guardar la matriz del archivo y '0' si no desea guardarla.\nSin lugar a dudas, ¡A usted no le funciona la materia gris!\n");
+        }
+    }while(askSaving != 1 && askSaving != 0);
+    return askSaving;
+}
+
+// ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- //
+// PROCEDIMIENTOS QUE MANEJAN LAS OPERACIONES MATRICIALES
+// ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- //
 
 void handle_matrix_addition() 
 {
@@ -124,15 +172,7 @@ void handle_matrix_multiplication()
     char chargingPlace;
     
     // Pregunta si quiere CARGAR la matriz del archivo.
-    do{
-        printf("Ingrese si desea cargar la matriz resultado del archivo\n1: 'SI'\n0: 'NO'\nSu eleccion:\t");
-        scanf("%hhu", &askCharging);
-        if(askCharging != 1 && askCharging != 0)
-        {
-            Beep(900,500);
-            printf("\nSr Usuario, se le explico claramente que debe seleccionar:\n'1' si desea cargar la matriz del archivo y '0' si no desea cargarla.\nSin lugar a dudas, ¡A usted no le funciona la materia gris!\n");
-        }
-    }while(askCharging != 1 && askCharging != 0);
+    askCharging = preguntaSiCargar();
     
     if(askCharging == 0) // NO desea CARGAR.
     {
@@ -188,15 +228,7 @@ void handle_matrix_multiplication()
     if(askCharging == 1) // SI desea CARGAR.
     {
         // Pregunta donde quiere CARGAR la matriz.
-        do{
-            printf("\nIngrese donde desea cargar la matriz del archivo:\nA: Matriz A\nB: Matriz B:\nSu eleccion:\t");
-            scanf("%c", &chargingPlace);
-            if(chargingPlace != 'A' && chargingPlace != 'B')
-            {
-                Beep(900,500);
-                printf("\nSr Usuario, se le explico claramente que debe seleccionar:\n'A' si desea cargar la matriz del archivo en la matriz A y 'B' si  desea cargar la matriz del archivo en la matriz B.\nSin lugar a dudas, ¡A usted no le funciona la materia gris!\n");
-            }
-        }while(chargingPlace != 'A' && chargingPlace != 'B');
+        chargingPlace = preguntaDondeCargar();
         
         // La matriz proveniente del archivo se carga en la Matriz A.
         if(chargingPlace == 'A')
@@ -304,15 +336,7 @@ void handle_matrix_multiplication()
     mostrarMatriz(rows_a, cols_b, result);
 
     // Pregunta si quiere GUARDAR la matriz del archivo.
-    do{
-        printf("Ingrese si desea guardar la matriz resultado en el archivo\n1: 'SI'\n0: 'NO'\nSu eleccion:\t");
-        scanf("%hhu", &askSaving);
-        if(askSaving != 1 && askSaving != 0)
-        {
-            Beep(900,500);
-            printf("\nSr Usuario, se le explico claramente que debe seleccionar:\n'1' si desea guardar la matriz del archivo y '0' si no desea guardarla.\nSin lugar a dudas, ¡A usted no le funciona la materia gris!\n");
-        }
-    }while(askSaving != 1 && askSaving != 0);
+    askSaving = preguntaSiGuardar();
 
     if(askSaving == 1) // SI desea GUARDAR.
     {
