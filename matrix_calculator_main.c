@@ -39,17 +39,9 @@ int main()
             case 8:
                 printf("\n[Operación seleccionada] Cálculo de matriz inversa.\n");
                 break;
-            case 9:
-                printf("\n[Operación seleccionada] Guardar matriz en archivo.\n");
-                break;
-            case 10:
-                printf("\n[Operación seleccionada] Cargar matriz desde archivo.\n");
-                break;
             case 0:
                 printf("\nSaliendo del programa. ¡Gracias por usar la calculadora!\n");
                 break;
-            default:
-                printf("\nOpción no válida. Intenta de nuevo.\n");
         }
     } while (opcion != 0);
 
