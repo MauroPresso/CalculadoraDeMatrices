@@ -102,7 +102,7 @@ void handle_matrix_multiplication()
     
     // Declaro las variables fuera de las estructuras de control para poder seguir utilizandolas fuera de estas ultimas.
     uint8_t rows_a, N, cols_b;
-    uint8_t askCharging;
+    uint8_t askCharging, askSaving;
     char chargingPlace;
     
     // Pregunta si quiere CARGAR la matriz del archivo.
@@ -111,6 +111,7 @@ void handle_matrix_multiplication()
         scanf("%hhu", &askCharging);
         if(askCharging != 1 && askCharging != 0)
         {
+            Beep(900,500);
             printf("\nSr Usuario, se le explico claramente que debe seleccionar:\n'1' si desea cargar la matriz del archivo y '0' si no desea cargarla.\nSin lugar a dudas, ¡A usted no le funciona la materia gris!\n");
         }
     }while(askCharging != 1 && askCharging != 0);
@@ -123,10 +124,12 @@ void handle_matrix_multiplication()
             scanf("%hhu", &rows_a);
             if(rows_a == 0)
             {
+                Beep(900,500);
                 printf("\nSr Usuario: El numero de filas de una matriz es estrictamente positivo.\nSin lugar a dudas, ¡Usted es retrasado!\n");
             }
             if(rows_a > 255)
             {
+                Beep(900,500);
                 printf("\nSr Usuario: Esta calculadora soporta como mucho matrices de 255x255. Disculpe los inconvenientes.\n");
             }
         }while(rows_a == 0 || rows_a > 255);
@@ -137,10 +140,12 @@ void handle_matrix_multiplication()
             scanf("%hhu", &N);
             if(N == 0)
             {
+                Beep(900,500);
                 printf("\nSr Usuario: El numero de filas y de columnas de una matriz es estrictamente positivo.\nSin lugar a dudas, ¡Usted es retrasado!\n");
             }
             if(N > 255)
             {
+                Beep(900,500);
                 printf("\nSr Usuario: Esta calculadora soporta como mucho matrices de 255x255. Disculpe los inconvenientes.\n");
             }
         }while(N == 0 || N > 255);
@@ -151,10 +156,12 @@ void handle_matrix_multiplication()
             scanf("%hhu", &cols_b);
             if(cols_b == 0)
             {
+                Beep(900,500);
                 printf("\nSr Usuario: El numero de columnas de una matriz es estrictamente positivo.\nSin lugar a dudas, ¡Usted es retrasado!\n");
             }
             if(cols_b > 255)
             {
+                Beep(900,500);
                 printf("\nSr Usuario: Esta calculadora soporta como mucho matrices de 255x255. Disculpe los inconvenientes.\n");
             }
         }while(cols_b == 0 || cols_b > 255); 
@@ -168,6 +175,7 @@ void handle_matrix_multiplication()
             scanf(" %c", &chargingPlace);
             if(chargingPlace != 'A' && chargingPlace != 'B')
             {
+                Beep(900,500);
                 printf("\nSr Usuario, se le explico claramente que debe seleccionar:\n'A' si desea cargar la matriz del archivo en la matriz A y 'B' si  desea cargar la matriz del archivo en la matriz B.\nSin lugar a dudas, ¡A usted no le funciona la materia gris!\n");
             }
         }while(chargingPlace != 'A' && chargingPlace != 'B');
@@ -183,10 +191,12 @@ void handle_matrix_multiplication()
                 scanf("%hhu", &cols_b);
                 if(cols_b == 0)
                 {
+                    Beep(900,500);
                     printf("\nSr Usuario: El numero de columnas de una matriz es estrictamente positivo.\nSin lugar a dudas, ¡Usted es retrasado!\n");
                 }
                 if(cols_b > 255)
                 {
+                    Beep(900,500);
                     printf("\nSr Usuario: Esta calculadora soporta como mucho matrices de 255x255. Disculpe los inconvenientes.\n");
                 }
             }while(cols_b == 0 || cols_b > 255); 
@@ -201,10 +211,12 @@ void handle_matrix_multiplication()
                 scanf("%hhu", &rows_a);
                 if(rows_a == 0)
                 {
+                    Beep(900,500);
                     printf("\nSr Usuario: El numero de filas de una matriz es estrictamente positivo.\nSin lugar a dudas, ¡Usted es retrasado!\n");
                 }
                 if(rows_a > 255)
                 {
+                    Beep(900,500);
                     printf("\nSr Usuario: Esta calculadora soporta como mucho matrices de 255x255. Disculpe los inconvenientes.\n");
                 }
             }while(rows_a == 0 || rows_a > 255);
@@ -272,6 +284,22 @@ void handle_matrix_multiplication()
     // Muestro la Matriz Resultado.
     printf("\nResultado de la multiplicación:\n");
     mostrarMatriz(rows_a, cols_b, result);
+
+    // Pregunta si quiere CARGAR la matriz del archivo.
+    do{
+        printf("Ingrese si desea cargar la matriz resultado del archivo\n1: 'SI'\n0: 'NO'\nSu eleccion:\t");
+        scanf("%hhu", &askSaving);
+        if(askSaving != 1 && askSaving != 0)
+        {
+            Beep(900,500);
+            printf("\nSr Usuario, se le explico claramente que debe seleccionar:\n'1' si desea cargar la matriz del archivo y '0' si no desea cargarla.\nSin lugar a dudas, ¡A usted no le funciona la materia gris!\n");
+        }
+    }while(askSaving != 1 && askSaving != 0);
+
+    if(askSaving == 1) // SI desea GUARDAR.
+    {
+        guardarMatriz(result, rows_a, cols_b, "matrizResultado.txt");
+    }
 
     // Libero la memoria dinamica.
     liberarMatriz(matrix_a, rows_a);
