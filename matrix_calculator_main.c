@@ -6,11 +6,10 @@
 
 int main() 
 {
-    int opcion;
+    uint8_t opcion;
 
     do {
-        mostrarMenu();
-        opcion = obtenerOpcion();
+        opcion = obtenerOpcionMenu();
 
         switch (opcion) 
 		{
