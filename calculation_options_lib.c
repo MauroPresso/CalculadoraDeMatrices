@@ -105,27 +105,98 @@ void handle_matrix_addition()
     printf("\n--- Suma de Matrices ---\n");
 
     uint8_t rows, cols;
-    printf("Ingresa el número de filas: ");
-    scanf("%hhu", &rows);
-    printf("Ingresa el número de columnas: ");
-    scanf("%hhu", &cols);
+    uint8_t askCharging, askSaving;
+    
+    // Pregunta si quiere CARGAR la matriz del archivo.
+    askCharging = preguntaSiCargar();
+
+    if(askCharging == 0) // NO desea CARGAR.
+    {
+        // Ingresa el numero de filas de las matrices.
+        do{
+            printf("\nIngresa el numero de filas de las matrices:\t");
+            scanf("%hhu", &rows);
+            if(rows == 0)
+            {
+                Beep(900,500);
+                printf("\nSr Usuario: El numero de filas de una matriz es estrictamente positivo.\nSin lugar a dudas, ¡Usted es retrasado!\n");
+            }
+            if(rows > 255)
+            {
+                Beep(900,500);
+                printf("\nSr Usuario: Esta calculadora soporta como mucho matrices de 255x255. Disculpe los inconvenientes.\n");
+            }
+        }while(rows == 0 || rows > 255);
+        
+        // Ingresa el numero de columnas de las matrices.
+        do{
+            printf("\nIngresa el numero de columnas de las matrices:\t");
+            scanf("%hhu", &cols);
+            if(cols == 0)
+            {
+                Beep(900,500);
+                printf("\nSr Usuario: El numero de columnas de una matriz es estrictamente positivo.\nSin lugar a dudas, ¡Usted es retrasado!\n");
+            }
+            if(cols > 255)
+            {
+                Beep(900,500);
+                printf("\nSr Usuario: Esta calculadora soporta como mucho matrices de 255x255. Disculpe los inconvenientes.\n");
+            }
+        }while(cols == 0 || cols > 255); 
+    }
+
+    if(askCharging == 1) // SI desea CARGAR.
+    {
+        leerDimensionesMatriz("matrizResultado.txt", &rows, &cols);
+    }
 
     double** matrix_a = crearMatriz(rows, cols);
     double** matrix_b = crearMatriz(rows, cols);
 
-    printf("\nIngresa los elementos de la primera matriz:\n");
-    llenarMatriz(matrix_a, rows, cols);
-    printf("\nIngresa los elementos de la segunda matriz:\n");
-    llenarMatriz(matrix_b, rows, cols);
+    if(askCharging == 0)
+    {
+        printf("\nIngresa los elementos de la Matriz A:\n");
+        llenarMatriz(matrix_a, rows, cols);
+        printf("\nMatriz A:\n");
+        mostrarMatriz(rows, cols, matrix_a);
+        
+        printf("\nIngresa los elementos de la Matriz B:\n");
+        llenarMatriz(matrix_b, rows, cols);
+        printf("\nMatriz B:\n");
+        mostrarMatriz(rows, cols, matrix_b);
+    }
+    
+    if(askCharging == 1)
+    {
+        cargarMatriz("matrizResultado.txt", &matrix_a, &rows, &cols);
+        printf("\nMatriz A:\n");
+        mostrarMatriz(rows, cols, matrix_a);
 
-    double** result = sumaDeMatrices(matrix_a, matrix_b, rows, cols);
+        printf("\nIngresa los elementos de la Matriz B:\n");
+        llenarMatriz(matrix_b, rows, cols);
+        printf("\nMatriz B:\n");
+        mostrarMatriz(rows, cols, matrix_b);
+    }
 
+    double** result = crearMatriz(rows, cols);
+    
+    sumaDeMatrices(rows, cols, matrix_a, matrix_b, result);
     printf("\nResultado de la suma:\n");
     mostrarMatriz(result, rows, cols);
+
+    askSaving = preguntaSiGuardar();
+    if(askSaving == 1)
+    {
+        guardarMatriz(result, rows, cols, "matrizResultado.txt");
+    }
 
     liberarMatriz(matrix_a, rows);
     liberarMatriz(matrix_b, rows);
     liberarMatriz(result, rows);
+
+    matrix_a = NULL;
+    matrix_b = NULL;
+    result = NULL;
 }
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- //
@@ -299,7 +370,7 @@ void handle_matrix_multiplication()
         if(chargingPlace == 'A')
         {
             // Carga y Muestra la Matriz A.
-            cargarMatriz("matrizResultado.txt", matrix_a, &rows_a, &N);
+            cargarMatriz("matrizResultado.txt", &matrix_a, &rows_a, &N);
             printf("\nMatriz A:\n");
             mostrarMatriz(rows_a, N, matrix_a);
             // Llena y Muestra la Matriz B.
@@ -318,7 +389,7 @@ void handle_matrix_multiplication()
             printf("\nMatriz A:\n");
             mostrarMatriz(rows_a, N, matrix_a);
             // Carga y Muestra la Matriz B.
-            cargarMatriz("matrizResultado.txt", matrix_b, &N, &cols_b);
+            cargarMatriz("matrizResultado.txt", &matrix_b, &N, &cols_b);
             printf("\nMatriz B:\n");
             mostrarMatriz(N, cols_b, matrix_b);
         }
