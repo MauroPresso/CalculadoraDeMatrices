@@ -305,6 +305,11 @@ void handle_matrix_multiplication()
     liberarMatriz(matrix_a, rows_a);
     liberarMatriz(matrix_b, N);
     liberarMatriz(result, rows_a);
+
+    // Quitando punteros residuales.
+    matrix_a = NULL;
+    matrix_b = NULL;
+    result = NULL;
 }
 
 void handle_matrix_transpose() {
