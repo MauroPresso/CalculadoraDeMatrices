@@ -90,7 +90,7 @@ uint8_t preguntaSiGuardar(void)
         if(askSaving != 1 && askSaving != 0)
         {
             Beep(900,500);
-            printf("\nSr Usuario, se le explico claramente que debe seleccionar:\n'1' si desea guardar la matriz del archivo y '0' si no desea guardarla.\nSin lugar a dudas, ¡A usted no le funciona la materia gris!\n");
+            printf("\nSr Usuario, se le explico claramente que debe seleccionar:\n'1' si desea guardar la matriz en el archivo y '0' si no desea guardarla.\nSin lugar a dudas, ¡A usted no le funciona la materia gris!\n");
         }
     }while(askSaving != 1 && askSaving != 0);
     return askSaving;
