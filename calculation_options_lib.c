@@ -4,6 +4,8 @@
 #include "matrix_calculator_lib.h"
 #include "calculation_options_lib.h"
 
+// ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
+
 void mostrarMenu() 
 {
     printf("\n========== CALCULADORA DE MATRICES ==========\n");
@@ -29,9 +31,12 @@ void mostrarMenu()
     printf("Tu selección: ");
 }
 
-int obtenerOpcion() {
-    uint8_t opcion;
-    if (scanf("%hhu", &opcion) != 1) 
+// ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
+
+int obtenerOpcionMenu() 
+{
+    int opcion;
+    if (scanf("%d", &opcion) != 1) 
 	{
         printf("\nError: Entrada no válida. Intenta de nuevo.\n");
         while (getchar() != '\n'); // Limpiar el buffer
@@ -39,6 +44,8 @@ int obtenerOpcion() {
     }
     return opcion;
 }
+
+// ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
 
 // Implementaciones de las opciones
 
@@ -69,6 +76,8 @@ void handle_matrix_addition() {
     liberarMatriz(result, rows);
 }
 
+// ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
+
 void handle_matrix_subtraction() {
     printf("\n--- Resta de Matrices ---\n");
 
@@ -95,6 +104,8 @@ void handle_matrix_subtraction() {
     liberarMatriz(matrix_b, rows);
     liberarMatriz(result, rows);
 }
+
+// ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
 
 void handle_matrix_multiplication() 
 {
@@ -172,7 +183,7 @@ void handle_matrix_multiplication()
         // Pregunta donde quiere CARGAR la matriz.
         do{
             printf("\nIngrese donde desea cargar la matriz del archivo:\nA: Matriz A\nB: Matriz B:\nSu eleccion:\t");
-            scanf(" %c", &chargingPlace);
+            scanf("%c", &chargingPlace);
             if(chargingPlace != 'A' && chargingPlace != 'B')
             {
                 Beep(900,500);
@@ -312,6 +323,8 @@ void handle_matrix_multiplication()
     result = NULL;
 }
 
+// ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
+
 void handle_matrix_transpose() {
     printf("\n--- Transponer una Matriz ---\n");
 
@@ -334,6 +347,8 @@ void handle_matrix_transpose() {
     liberarMatriz(matrix, rows);
     liberarMatriz(result, cols);
 }
+
+// ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
 
 void handle_matrix_determinant() {
     printf("\n--- Determinante de una Matriz ---\n");
