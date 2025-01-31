@@ -55,7 +55,7 @@ uint8_t preguntaSiCargar(void) // Pregunta si quiere CARGAR la matriz del archiv
 {
     uint8_t askCharging;
     do{
-        printf("Ingrese si desea cargar la matriz resultado del archivo\n1: 'SI'\n0: 'NO'\nSu eleccion:\t");
+        printf("Ingrese si desea cargar la matriz resultado del archivo\n'1': SI\n'0': NO\nSu eleccion:\t");
         scanf("%hhu", &askCharging);
         if(askCharging != 1 && askCharging != 0)
         {
@@ -70,12 +70,12 @@ char preguntaDondeCargar(void)
 {
     char chargingPlace;
     do{
-        printf("\nIngrese donde desea cargar la matriz del archivo:\nA: Matriz A\nB: Matriz B:\nSu eleccion:\t");
+        printf("\nIngrese donde desea cargar la matriz del archivo:\n'A': Matriz A\n'B': Matriz B:\nSu eleccion:\t");
         scanf("%c", &chargingPlace);
         if(chargingPlace != 'A' && chargingPlace != 'B')
         {
             Beep(900,500);
-            printf("\nSr Usuario, se le explico claramente que debe seleccionar:\n'A' si desea cargar la matriz del archivo en la matriz A y 'B' si  desea cargar la matriz del archivo en la matriz B.\nSin lugar a dudas, ¡A usted no le funciona la materia gris!\n");
+            printf("\nSr Usuario, se le explico claramente que debe seleccionar:\n'A' si desea cargar la matriz del archivo en la Matriz A y 'B' si  desea cargar la matriz del archivo en la Matriz B.\nSin lugar a dudas, ¡A usted no le funciona la materia gris!\n");
         }
     }while(chargingPlace != 'A' && chargingPlace != 'B');
     return chargingPlace;
@@ -85,7 +85,7 @@ uint8_t preguntaSiGuardar(void)
 {
     uint8_t askSaving;
     do{
-        printf("Ingrese si desea guardar la matriz resultado en el archivo\n1: 'SI'\n0: 'NO'\nSu eleccion:\t");
+        printf("Ingrese si desea guardar la matriz resultado en el archivo\n'1': SI\n'0': NO\nSu eleccion:\t");
         scanf("%hhu", &askSaving);
         if(askSaving != 1 && askSaving != 0)
         {
