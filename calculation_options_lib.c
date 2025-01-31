@@ -285,9 +285,9 @@ void handle_matrix_multiplication()
     printf("\nResultado de la multiplicación:\n");
     mostrarMatriz(rows_a, cols_b, result);
 
-    // Pregunta si quiere CARGAR la matriz del archivo.
+    // Pregunta si quiere GUARDAR la matriz del archivo.
     do{
-        printf("Ingrese si desea cargar la matriz resultado del archivo\n1: 'SI'\n0: 'NO'\nSu eleccion:\t");
+        printf("Ingrese si desea guardar la matriz resultado en el archivo\n1: 'SI'\n0: 'NO'\nSu eleccion:\t");
         scanf("%hhu", &askSaving);
         if(askSaving != 1 && askSaving != 0)
         {
