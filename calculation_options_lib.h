@@ -3,7 +3,7 @@
 
 void handle_matrix_addition(void);
 
-void handle_matrix_substraction(void);
+void handle_matrix_subtraction(void);
 
 void handle_matrices_multiplication(void);
 
