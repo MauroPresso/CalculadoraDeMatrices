@@ -20,7 +20,7 @@ int main()
                 break;
             case 2:
                 printf("\n[Operación seleccionada] Resta de matrices.\n");
-                handle_matrix_subtraction();
+                handle_matrix_substraction();
                 break;
             case 3:
                 printf("\n[Operación seleccionada] Multiplicación de matrices.\n");
