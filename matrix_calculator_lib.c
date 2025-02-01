@@ -32,7 +32,7 @@ uint8_t obtenerOpcionMenu(void)
     do{
         mostrarMenu();
         scanf("%hhu", &opcion);
-        if(opcion != 0 && opcion != 1 && opcion != 2 && opcion != 3 && opcion != 4 && opcion != 5 && opcion != 6 && opcion != 7 && opcion != 8)
+        if(opcion > 8)
         {
             Beep(900,500);
             printf("\nSr Usuario: Se le explico claramente que opciones validas podia ingresar para realizar la operacion del menu que usted deseara.\nSin lugar a dudas, ¡A usted no le funciona la materia gris!\n");
