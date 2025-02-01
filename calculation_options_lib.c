@@ -11,22 +11,19 @@
 void mostrarMenu(void) 
 {
     printf("\n========== CALCULADORA DE MATRICES ==========\n");
-    printf("Por favor, seleccione una opción:\n");
-    printf("\n--- Operaciones Básicas ---\n");
+    printf("Por favor, seleccione una opcion:\n");
+    printf("\n'0': Salir\n");
+    printf("\n--- Operaciones Basicas ---\n");
     printf("'1': Sumar dos matrices\n");
     printf("'2': Restar dos matrices\n");
     printf("'3': Multiplicar dos matrices\n");
     printf("'4': Multiplicar matriz por escalar\n");
-    
     printf("\n--- Operaciones Avanzadas ---\n");
-    printf("'5': Calcular determinante\n");
-    printf("'6': Calcular matriz transpuesta\n");
-    printf("'7': Calcular matriz adjunta\n");
-    printf("'8': Calcular matriz inversa\n");
-
-    printf("\n'0': Salir\n");
+    printf("'5': Calcular matriz transpuesta\n");
+    printf("'6': Calcular determinante\n");
+    printf("'7': Calcular matriz inversa\n");
     printf("\n=============================================\n");
-    printf("Su elección:\t");
+    printf("Su eleccion:\t");
 }
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- //
@@ -100,7 +97,7 @@ uint8_t preguntaSiGuardar(void)
 // PROCEDIMIENTOS QUE MANEJAN LAS OPERACIONES MATRICIALES
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- //
 
-void handle_matrix_addition() 
+void handle_matrix_addition(void) 
 {
     printf("\n--- Suma de Matrices ---\n");
 
@@ -202,7 +199,7 @@ void handle_matrix_addition()
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- //
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- //
 
-void handle_matrix_subtraction() 
+void handle_matrix_subtraction(void) 
 {
     printf("\n--- Resta de Matrices ---\n");
 
@@ -233,7 +230,7 @@ void handle_matrix_subtraction()
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- //
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- //
 
-void handle_matrix_multiplication() 
+void handle_matrix_multiplication(void) 
 {
     printf("\n--- Multiplicación de Matrices ---\n"); // Este printf lo agrego solo por estetica.
     
@@ -428,7 +425,7 @@ void handle_matrix_multiplication()
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- //
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- //
 
-void handle_matrix_transpose() 
+void handle_matrix_transpose(void) 
 {
     printf("\n--- Transponer una Matriz ---\n");
 
@@ -455,7 +452,7 @@ void handle_matrix_transpose()
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- //
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- //
 
-void handle_matrix_determinant() 
+void handle_matrix_determinant(void) 
 {
     printf("\n--- Determinante de una Matriz ---\n");
 
