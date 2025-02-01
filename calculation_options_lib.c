@@ -571,3 +571,86 @@ void handle_matrix_determinant(void)
 
     matrix = NULL;
 }
+
+// ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- //
+// PROCEDIMIENTO QUE MANEJA EL CALCULO DE LA INVERSA DE UNA MATRIZ (CUADRADA).
+// ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- //
+
+void handle_matrix_inverse(void) 
+{
+    printf("\n--- Inversa de una Matriz ---\n");
+    uint8_t askCharging;
+    uint8_t rows, cols;
+    uint8_t size;
+    double determinante;
+    // Pregunta si quiere CARGAR la matriz del archivo.
+    askCharging = preguntaSiCargar();
+
+    if(askCharging == 0)
+    {
+        do{
+            printf("\nIngrese el orden de la matriz cuadrada:\t");
+            scanf("%hhu", &size);
+            if(size == 0)
+            {
+                Beep(900,500);
+                printf("\nSr Usuario: El orden de una matriz cuadrada debe ser estrictamente positivo. Sin lugar a dudas, ¡Usted es retrasado! \n");
+            }
+        }while(size == 0);
+    }
+    
+    if(askCharging == 1)
+    {
+        leerDimensionesMatriz("matrizResultado.txt", &rows, &cols);
+        if(rows != cols)
+        {
+            Beep(900,500);
+            printf("\nNO es posible calcular la inversa ya que la matriz del archivo no es cuadrada.\n");
+            return;
+        }
+        else
+        {
+            size = rows;
+        }
+    }
+
+    double** matrix = crearMatriz(size, size);
+
+    if(askCharging == 0)
+    {
+        printf("\nIngresa los elementos de la matriz:\n");
+        llenarMatriz(size, size, matrix);
+        printf("\nMatriz:\n");
+        mostrarMatriz(size, size, matrix);
+    }
+
+    if(askCharging == 1)
+    {
+        cargarMatriz("matrizResultado.txt", &matrix, &size, &size);
+        determinante = calcularDeterminante(size, matrix);
+        if(determinante == 0)
+        {
+            Beep(900,500);
+            printf("\nNo es posible calcular la inversa ya que el determinante de la matriz del archivo es CERO.\n");
+            return;
+        }
+    }
+
+    double** transpuesta = crearMatriz(size, size);
+    double** adjunta = crearMatriz(size, size);
+    double** inversa = crearMatriz(size, size);
+
+    invertirMatriz(size, determinante, matrix, transpuesta, adjunta, inversa);
+    printf("\nMatriz INVERSA:\n");
+    mostrarMatriz(size, size, inversa);
+
+    liberarMatriz(matrix, size);
+    liberarMatriz(transpuesta, size);
+    liberarMatriz(adjunta, size);
+    liberarMatriz(inversa, size);
+
+    matrix = NULL;
+    transpuesta = NULL;
+    adjunta = NULL;
+    inversa = NULL;
+}
