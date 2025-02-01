@@ -5,7 +5,7 @@
 #include "calculation_options_lib.h"
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- //
-// PROCEDIMIENTO QUE MANEJAN LA SUMA DE MATRICES.
+// PROCEDIMIENTO QUE MANEJA LA SUMA DE MATRICES.
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- //
 
 void handle_matrix_addition(void) 
@@ -108,7 +108,7 @@ void handle_matrix_addition(void)
 }
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- //
-// PROCEDIMIENTO QUE MANEJAN LA RESTA DE MATRICES.
+// PROCEDIMIENTO QUE MANEJA LA RESTA DE MATRICES.
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- //
 
 void handle_matrix_subtraction(void) 
@@ -231,7 +231,7 @@ void handle_matrix_subtraction(void)
 }
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- //
-// PROCEDIMIENTO QUE MANEJAN LA MULTIPLICACION ENTRE MATRICES.
+// PROCEDIMIENTO QUE MANEJA LA MULTIPLICACION ENTRE MATRICES.
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- //
 
 void handle_matrix_multiplication(void) 
@@ -427,23 +427,70 @@ void handle_matrix_multiplication(void)
 }
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- //
-// PROCEDIMIENTO QUE MANEJAN LA TRANSPOSICION DE UNA MATRIZ.
+// PROCEDIMIENTO QUE MANEJA LA TRANSPOSICION DE UNA MATRIZ.
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- //
 
 void handle_matrix_transpose(void) 
 {
     printf("\n--- Transponer una Matriz ---\n");
-
+    uint8_t askCharging, askSaving;
     uint8_t rows, cols;
-    printf("Ingresa el número de filas: ");
-    scanf("%hhu", &rows);
-    printf("Ingresa el número de columnas: ");
-    scanf("%hhu", &cols);
+    // Pregunta si quiere CARGAR la matriz del archivo.
+    askCharging = preguntaSiCargar();
+    
+    if(askCharging == 0) // NO desea CARGAR.
+    {
+        do{
+            printf("\nIngresa el numero de filas de la Matriz A:\t");
+            scanf("%hhu", &rows);
+            if(rows == 0)
+            {
+                Beep(900,500);
+                printf("\nSr Usuario: El numero de filas de una matriz es estrictamente positivo.\nSin lugar a dudas, ¡Usted es retrasado!\n");
+            }
+            if(rows > 255)
+            {
+                Beep(900,500);
+                printf("\nSr Usuario: Esta calculadora soporta como mucho matrices de 255x255. Disculpe los inconvenientes.\n");
+            }
+        }while(rows == 0 || rows > 255);
+        do{
+            printf("\nIngresa el numero de columnas de la Matriz:\t");
+            scanf("%hhu", &cols);
+            if(cols == 0)
+            {
+                Beep(900,500);
+                printf("\nSr Usuario: El numero de columnas de una matriz es estrictamente positivo.\nSin lugar a dudas, ¡Usted es retrasado!\n");
+            }
+            if(cols > 255)
+            {
+                Beep(900,500);
+                printf("\nSr Usuario: Esta calculadora soporta como mucho matrices de 255x255. Disculpe los inconvenientes.\n");
+            }
+        }while(cols == 0 || cols > 255); 
+    }
+
+    if(askCharging == 1) // SI desea CARGAR.
+    {
+        leerDimensionesMatriz("matrizResultado.txt", &rows, &cols);
+    }
 
     double** matrix = crearMatriz(rows, cols);
 
-    printf("\nIngresa los elementos de la matriz:\n");
-    llenarMatriz(rows, cols, matrix);
+    if(askCharging ==0)
+    {
+        printf("\nIngresa los elementos de la matriz:\n");
+        llenarMatriz(rows, cols, matrix);
+        printf("\nMatriz:\n");
+        mostrarMatriz(rows, cols, matrix);
+    }
+
+    if(askCharging == 1)
+    {
+        cargarMatriz("matrizResultado.txt", &matrix, &rows, &cols);
+        printf("\nMatriz:\n");
+        mostrarMatriz(rows, cols, matrix);
+    }
 
     double** result = crearMatriz(cols, rows);
     transponerMatriz(matrix, result, rows, cols);
@@ -459,7 +506,7 @@ void handle_matrix_transpose(void)
 }
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- //
-// PROCEDIMIENTO QUE MANEJAN EL CALCULO DE EL DETERMINANTE DE UNA MATRIZ (CUADRADA).
+// PROCEDIMIENTO QUE MANEJA EL CALCULO DE EL DETERMINANTE DE UNA MATRIZ (CUADRADA).
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- //
 
 void handle_matrix_determinant(void) 
