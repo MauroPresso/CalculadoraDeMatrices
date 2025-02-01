@@ -7,12 +7,13 @@
 int main() 
 {
     uint8_t opcion;
-
     do {
         opcion = obtenerOpcionMenu();
-
         switch (opcion) 
 		{
+            case 0:
+                printf("\nSaliendo del programa...\n");
+                break; // El break es para que no siga ejecutando secuencialmente los otros casos.
             case 1:
                 printf("\n[Operación seleccionada] Suma de matrices.\n");
                 // Llamar a la función correspondiente
@@ -27,22 +28,17 @@ int main()
                 printf("\n[Operación seleccionada] Multiplicación por escalar.\n");
                 break;
             case 5:
-                printf("\n[Operación seleccionada] Cálculo del determinante.\n");
-                break;
-            case 6:
                 printf("\n[Operación seleccionada] Transposición de matriz.\n");
                 break;
-            case 7:
-                printf("\n[Operación seleccionada] Cálculo de matriz adjunta.\n");
+            case 6:
+                printf("\n[Operación seleccionada] Cálculo del determinante.\n");
                 break;
-            case 8:
+            case 7:
                 printf("\n[Operación seleccionada] Cálculo de matriz inversa.\n");
                 break;
-            case 0:
-                printf("\nSaliendo del programa. ¡Gracias por usar la calculadora!\n");
-                break;
+            // default: sentencia; /*opcional porque estoy seguro que todos los valores de el selector estan incluidos en las etiquetas case*/
         }
     } while (opcion != 0);
-
+    printf("\n¡Gracias por usar la calculadora!\n");
     return 0;
 }
