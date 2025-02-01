@@ -221,6 +221,13 @@ void handle_matrix_subtraction(void)
     printf("\nResultado de la resta:\n");
     mostrarMatriz(rows, cols, result);
 
+    askSaving = preguntaSiGuardar();
+
+    if(askSaving == 1)
+    {
+        guardarMatriz(result, rows, cols, "matrizResultado.txt");
+    }
+
     liberarMatriz(matrix_a, rows);
     liberarMatriz(matrix_b, rows);
     liberarMatriz(result, rows);
@@ -234,7 +241,7 @@ void handle_matrix_subtraction(void)
 // PROCEDIMIENTO QUE MANEJA LA MULTIPLICACION ENTRE MATRICES.
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- //
 
-void handle_matrix_multiplication(void) 
+void handle_matrices_multiplication(void) 
 {
     printf("\n--- Multiplicación de Matrices ---\n"); // Este printf lo agrego solo por estetica.
     
@@ -427,6 +434,102 @@ void handle_matrix_multiplication(void)
 }
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- //
+// PROCEDIMIENTO QUE MANEJA LA MULTIPLICACION ENTRE UNA MATRIZ Y UN ESCALAR.
+// ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- //
+
+void handle_matrix_and_scalar_multiplication(void)
+{
+    printf("\n--- Matriz por Escalar ---\n");
+
+    uint8_t rows, cols;
+    uint8_t askCharging, askSaving;
+    
+    // Pregunta si quiere CARGAR la matriz del archivo.
+    askCharging = preguntaSiCargar();
+
+    if(askCharging == 0) // NO desea CARGAR.
+    {
+        // Ingresa el numero de filas de las matrices.
+        do{
+            printf("\nIngresa el numero de filas de las matriz:\t");
+            scanf("%hhu", &rows);
+            if(rows == 0)
+            {
+                Beep(900,500);
+                printf("\nSr Usuario: El numero de filas de una matriz es estrictamente positivo.\nSin lugar a dudas, ¡Usted es retrasado!\n");
+            }
+            if(rows > 255)
+            {
+                Beep(900,500);
+                printf("\nSr Usuario: Esta calculadora soporta como mucho matrices de 255x255. Disculpe los inconvenientes.\n");
+            }
+        }while(rows == 0 || rows > 255);
+        
+        // Ingresa el numero de columnas de las matrices.
+        do{
+            printf("\nIngresa el numero de columnas de la matriz:\t");
+            scanf("%hhu", &cols);
+            if(cols == 0)
+            {
+                Beep(900,500);
+                printf("\nSr Usuario: El numero de columnas de una matriz es estrictamente positivo.\nSin lugar a dudas, ¡Usted es retrasado!\n");
+            }
+            if(cols > 255)
+            {
+                Beep(900,500);
+                printf("\nSr Usuario: Esta calculadora soporta como mucho matrices de 255x255. Disculpe los inconvenientes.\n");
+            }
+        }while(cols == 0 || cols > 255); 
+    }
+
+    if(askCharging == 1) // SI desea CARGAR.
+    {
+        leerDimensionesMatriz("matrizResultado.txt", &rows, &cols);
+    }
+
+    double** matrix = crearMatriz(rows, cols);
+
+    if(askCharging == 0)
+    {
+        printf("\nIngresa los elementos de la Matriz:\n");
+        llenarMatriz(rows, cols, matrix);
+        printf("\nMatriz:\n");
+        mostrarMatriz(rows, cols, matrix);
+    }
+    
+    if(askCharging == 1)
+    {
+        cargarMatriz("matrizResultado.txt", &matrix, &rows, &cols);
+        printf("\nMatriz:\n");
+        mostrarMatriz(rows, cols, matrix);
+    }
+
+    double** result = crearMatriz(rows, cols);
+    
+    double escalar;
+    printf("\nIngrese un escalar:\t");
+    scanf("%lf", &escalar);
+
+    matrizPorEscalar(escalar, rows, cols, matrix, result);
+
+    printf("\nMatriz resultado:\n");
+    mostrarMatriz(rows, cols, result);
+
+    askSaving = preguntaSiGuardar();
+
+    if(askSaving == 1)
+    {
+        guardarMatriz(result, rows, cols, "matrizResultado.txt");
+    }
+
+    liberarMatriz(matrix, rows);
+    liberarMatriz(result, rows);
+
+    matrix = NULL;
+    result = NULL;
+}
+
+// ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- //
 // PROCEDIMIENTO QUE MANEJA LA TRANSPOSICION DE UNA MATRIZ.
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- //
 
@@ -497,6 +600,13 @@ void handle_matrix_transpose(void)
 
     printf("\nResultado de la transposición:\n");
     mostrarMatriz(cols, rows, result);
+
+    askSaving = preguntaSiGuardar();
+
+    if(askSaving == 1)
+    {
+        guardarMatriz(result, cols, rows, "matrizResultado.txt");
+    }
 
     liberarMatriz(matrix, rows);
     liberarMatriz(result, cols);
@@ -579,7 +689,7 @@ void handle_matrix_determinant(void)
 void handle_matrix_inverse(void) 
 {
     printf("\n--- Inversa de una Matriz ---\n");
-    uint8_t askCharging;
+    uint8_t askCharging, askSaving;
     uint8_t rows, cols;
     uint8_t size;
     double determinante;
@@ -643,6 +753,13 @@ void handle_matrix_inverse(void)
     invertirMatriz(size, determinante, matrix, transpuesta, adjunta, inversa);
     printf("\nMatriz INVERSA:\n");
     mostrarMatriz(size, size, inversa);
+
+    askSaving = preguntaSiGuardar();
+
+    if(askSaving == 1)
+    {
+        guardarMatriz(inversa, size, size, "matrizResultado.txt");
+    }
 
     liberarMatriz(matrix, size);
     liberarMatriz(transpuesta, size);
