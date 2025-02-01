@@ -64,12 +64,12 @@ void handle_matrix_addition(void)
     if(askCharging == 0)
     {
         printf("\nIngresa los elementos de la Matriz A:\n");
-        llenarMatriz(matrix_a, rows, cols);
+        llenarMatriz(rows, cols, matrix_a);
         printf("\nMatriz A:\n");
         mostrarMatriz(rows, cols, matrix_a);
         
         printf("\nIngresa los elementos de la Matriz B:\n");
-        llenarMatriz(matrix_b, rows, cols);
+        llenarMatriz(rows, cols, matrix_b);
         printf("\nMatriz B:\n");
         mostrarMatriz(rows, cols, matrix_b);
     }
@@ -81,7 +81,7 @@ void handle_matrix_addition(void)
         mostrarMatriz(rows, cols, matrix_a);
 
         printf("\nIngresa los elementos de la Matriz B:\n");
-        llenarMatriz(matrix_b, rows, cols);
+        llenarMatriz(rows, cols, matrix_b);
         printf("\nMatriz B:\n");
         mostrarMatriz(rows, cols, matrix_b);
     }
@@ -90,7 +90,7 @@ void handle_matrix_addition(void)
     
     sumaDeMatrices(rows, cols, matrix_a, matrix_b, result);
     printf("\nResultado de la suma:\n");
-    mostrarMatriz(result, rows, cols);
+    mostrarMatriz(rows, cols, result);
 
     askSaving = preguntaSiGuardar();
     if(askSaving == 1)
@@ -128,12 +128,12 @@ void handle_matrix_subtraction(void)
         do{
             printf("\nIngresa el numero de filas de las Matrices:\t");
             scanf("%hhu", &rows);
-            if(rows_a == 0)
+            if(rows == 0)
             {
                 Beep(900,500);
                 printf("\nSr Usuario: El numero de filas de una matriz es estrictamente positivo.\nSin lugar a dudas, ¡Usted es retrasado!\n");
             }
-            if(rows_a > 255)
+            if(rows > 255)
             {
                 Beep(900,500);
                 printf("\nSr Usuario: Esta calculadora soporta como mucho matrices de 255x255. Disculpe los inconvenientes.\n");
@@ -219,7 +219,7 @@ void handle_matrix_subtraction(void)
     restaDeMatrices(rows, cols, matrix_a, matrix_b, result);
 
     printf("\nResultado de la resta:\n");
-    mostrarMatriz(result, rows, cols);
+    mostrarMatriz(rows, cols, result);
 
     liberarMatriz(matrix_a, rows);
     liberarMatriz(matrix_b, rows);
@@ -443,15 +443,19 @@ void handle_matrix_transpose(void)
     double** matrix = crearMatriz(rows, cols);
 
     printf("\nIngresa los elementos de la matriz:\n");
-    llenarMatriz(matrix, rows, cols);
+    llenarMatriz(rows, cols, matrix);
 
-    double** result = transponerMatriz(matrix, rows, cols);
+    double** result = crearMatriz(cols, rows);
+    transponerMatriz(matrix, result, rows, cols);
 
     printf("\nResultado de la transposición:\n");
-    mostrarMatriz(result, cols, rows);
+    mostrarMatriz(cols, rows, result);
 
     liberarMatriz(matrix, rows);
     liberarMatriz(result, cols);
+
+    matrix = NULL;
+    result = NULL;
 }
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- //
@@ -461,19 +465,62 @@ void handle_matrix_transpose(void)
 void handle_matrix_determinant(void) 
 {
     printf("\n--- Determinante de una Matriz ---\n");
-
+    uint8_t askCharging;
+    uint8_t rows, cols;
     uint8_t size;
-    printf("Ingresa el tamaño de la matriz (cuadrada): ");
-    scanf("%hhu", &size);
+    // Pregunta si quiere CARGAR la matriz del archivo.
+    askCharging = preguntaSiCargar();
+
+    if(askCharging == 0)
+    {
+        do{
+            printf("\nIngrese el orden de la matriz cuadrada:\t");
+            scanf("%hhu", &size);
+            if(size == 0)
+            {
+                Beep(900,500);
+                printf("\nSr Usuario: El orden de una matriz cuadrada debe ser estrictamente positivo. Sin lugar a dudas, ¡Usted es retrasado! \n");
+            }
+        }while(size == 0);
+    }
+    
+    if(askCharging == 1)
+    {
+        leerDimensionesMatriz("matrizResultado.txt", &rows, &cols);
+        if(rows != cols)
+        {
+            Beep(900,500);
+            printf("\nNO es posible calcular el determinante ya que la matriz del archivo no es cuadrada.\n");
+            return;
+        }
+        else
+        {
+            size = rows;
+        }
+    }
 
     double** matrix = crearMatriz(size, size);
 
-    printf("\nIngresa los elementos de la matriz:\n");
-    llenarMatriz(matrix, size, size);
+    if(askCharging == 0)
+    {
+        printf("\nIngresa los elementos de la matriz:\n");
+        llenarMatriz(size, size, matrix);
+        printf("\nMatriz:\n");
+        mostrarMatriz(size, size, matrix);
+    }
 
-    double determinant = calcularDeterminante(matrix, size);
+    if(askCharging == 1)
+    {
+        cargarMatriz("matrizResultado.txt", &matrix, &size, &size);
+        printf("\nMatriz:\n");
+        mostrarMatriz(size, size, matrix);
+    }
 
-    printf("\nEl determinante de la matriz es: %d\n", determinant);
+    double determinante = calcularDeterminante(size, matrix);
+
+    printf("\nEl determinante de la matriz es:\t%lf\n", determinante);
 
     liberarMatriz(matrix, size);
+
+    matrix = NULL;
 }
