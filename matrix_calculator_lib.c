@@ -4,7 +4,96 @@
 #include <stdint.h>
 #include <windows.h>
 
-// Función para crear una matriz dinámica de tamaño filas x columnas
+// ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- //
+// FUNCIONES QUE MANEJAN EL MENU DE OPCIONES
+// ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- //
+
+void mostrarMenu(void) 
+{
+    printf("\n========== CALCULADORA DE MATRICES ==========\n");
+    printf("Por favor, seleccione una opcion:\n");
+    printf("\n'0': Salir\n");
+    printf("\n--- Operaciones Basicas ---\n");
+    printf("'1': Sumar dos matrices\n");
+    printf("'2': Restar dos matrices\n");
+    printf("'3': Multiplicar dos matrices\n");
+    printf("'4': Multiplicar matriz por escalar\n");
+    printf("\n--- Operaciones Avanzadas ---\n");
+    printf("'5': Calcular matriz transpuesta\n");
+    printf("'6': Calcular determinante\n");
+    printf("'7': Calcular matriz inversa\n");
+    printf("\n=============================================\n");
+    printf("Su eleccion:\t");
+}
+
+uint8_t obtenerOpcionMenu(void) 
+{
+    uint8_t opcion;
+    do{
+        mostrarMenu();
+        scanf("%hhu", &opcion);
+        if(opcion != 0 && opcion != 1 && opcion != 2 && opcion != 3 && opcion != 4 && opcion != 5 && opcion != 6 && opcion != 7 && opcion != 8)
+        {
+            Beep(900,500);
+            printf("\nSr Usuario: Se le explico claramente que opciones validas podia ingresar para realizar la operacion del menu que usted deseara.\nSin lugar a dudas, ¡A usted no le funciona la materia gris!\n");
+        }
+    }while(opcion > 8);
+    return opcion;
+}
+
+// ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- //
+// FUNCIONES QUE PREGUNTAN ACERCA DEL CARGADO Y EL GUARDADO DE LA MATRIZ RESULTADO
+// ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- //
+
+uint8_t preguntaSiCargar(void) // Pregunta si quiere CARGAR la matriz del archivo.
+{
+    uint8_t askCharging;
+    do{
+        printf("Ingrese si desea cargar la matriz resultado del archivo\n'1': SI\n'0': NO\nSu eleccion:\t");
+        scanf("%hhu", &askCharging);
+        if(askCharging != 1 && askCharging != 0)
+        {
+            Beep(900,500);
+            printf("\nSr Usuario, se le explico claramente que debe seleccionar:\n'1' si desea cargar la matriz del archivo y '0' si no desea cargarla.\nSin lugar a dudas, ¡A usted no le funciona la materia gris!\n");
+        }
+    }while(askCharging != 1 && askCharging != 0);
+    return askCharging;
+}
+
+char preguntaDondeCargar(void)
+{
+    char chargingPlace;
+    do{
+        printf("\nIngrese donde desea cargar la matriz del archivo:\n'A': Matriz A\n'B': Matriz B:\nSu eleccion:\t");
+        scanf("%c", &chargingPlace);
+        if(chargingPlace != 'A' && chargingPlace != 'B')
+        {
+            Beep(900,500);
+            printf("\nSr Usuario, se le explico claramente que debe seleccionar:\n'A' si desea cargar la matriz del archivo en la Matriz A y 'B' si  desea cargar la matriz del archivo en la Matriz B.\nSin lugar a dudas, ¡A usted no le funciona la materia gris!\n");
+        }
+    }while(chargingPlace != 'A' && chargingPlace != 'B');
+    return chargingPlace;
+}
+
+uint8_t preguntaSiGuardar(void)
+{
+    uint8_t askSaving;
+    do{
+        printf("Ingrese si desea guardar la matriz resultado en el archivo\n'1': SI\n'0': NO\nSu eleccion:\t");
+        scanf("%hhu", &askSaving);
+        if(askSaving != 1 && askSaving != 0)
+        {
+            Beep(900,500);
+            printf("\nSr Usuario, se le explico claramente que debe seleccionar:\n'1' si desea guardar la matriz en el archivo y '0' si no desea guardarla.\nSin lugar a dudas, ¡A usted no le funciona la materia gris!\n");
+        }
+    }while(askSaving != 1 && askSaving != 0);
+    return askSaving;
+}
+
+// ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- //
+// FUNCIONES QUE MANEJAN EL CREADO Y LIBERADO DE LAS MATRICES DINAMICAS.
+// ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- //
+
 double** crearMatriz(uint8_t filas, uint8_t columnas) 
 {
     double **matriz = (double **)malloc(filas * sizeof(double *));
@@ -15,7 +104,6 @@ double** crearMatriz(uint8_t filas, uint8_t columnas)
     return matriz;
 }
 
-// Función para liberar la memoria de una matriz
 void liberarMatriz(double **matriz, uint8_t filas) 
 {
     for (uint8_t i = 0; i < filas; i++) 
@@ -24,6 +112,10 @@ void liberarMatriz(double **matriz, uint8_t filas)
     }
     free(matriz);
 }
+
+// ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- //
+// FUNCIONES QUE MANEJAN LA IMPRESION Y EL LLENADO DE LAS MATRICES DINAMICAS.
+// ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- //
 
 void mostrarMatriz(uint8_t f, uint8_t c, double **m)
 {
@@ -56,71 +148,9 @@ void llenarMatriz(uint8_t f, uint8_t c, double **m)
 	}
 }
 
-void sumaDeMatrices(uint8_t f, uint8_t c, double **matrizA, double **matrizB, double **matrizSuma)
-{
-	for(uint8_t i=0;i<f;i++)
-	{
-		for(uint8_t j=0;j<c;j++)
-		{
-			matrizSuma[i][j]=matrizA[i][j]+matrizB[i][j];
-		}
-	}
-}
-
-void restaDeMatrices(uint8_t f, uint8_t c, double **matrizA, double **matrizB, double **matrizResta)
-{
-	for(uint8_t i=0;i<f;i++)
-	{
-		for(uint8_t j=0;j<c;j++)
-		{
-			matrizResta[i][j]=matrizA[i][j]-matrizB[i][j];
-		}
-	}
-}
-
-void productoDeMatrices(uint8_t filA, uint8_t columB, uint8_t n, double **matrizA, double **matrizB, double **matrizProducto) 
-{
-	for (uint8_t i = 0; i < filA; i++) 
-	{
-		for (uint8_t j = 0; j < columB; j++) 
-		{
-			matrizProducto[i][j] = 0;
-			for (uint8_t k = 0; k < n; k++) 
-			{
-				matrizProducto[i][j] = matrizProducto[i][j] + matrizA[i][k] * matrizB[k][j];
-			}
-		}
-	}
-}
-
-void matrizPorEscalar(double n, uint8_t f, uint8_t c, double **m, double **p)
-{
-	for(uint8_t i=0;i<f;i++)
-	{
-		for(uint8_t j=0;j<c;j++)
-		{
-			p[i][j]=n*m[i][j];
-		}
-	}
-}
-
-void identidad(uint8_t n, double **m)
-{
-	for(uint8_t i=0;i<n;i++)
-	{
-		for(uint8_t j=0;j<n;j++)
-		{
-			if(i==j)
-			{
-				m[i][j]=1;
-			}
-			else
-			{
-				m[i][j]=0;
-			}
-		}
-	}
-}
+// ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- //
+// FUNCIONES QUE MANEJAN EL GUARDADO Y EL CARGADO DE LAS MATRICES DINAMICAS.
+// ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- //
 
 void guardarMatriz(double **matriz, uint8_t f, uint8_t c, const char *nombreArchivo)
 {
@@ -189,6 +219,62 @@ void cargarMatriz(const char *nombreArchivo, double ***matriz, uint8_t *f, uint8
 	// Cerrar el archivo
 	fclose(archivo);
 }
+
+// ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- //
+// FUNCIONES QUE MANEJAN LAS OPERACIONES BASICAS DE LAS MATRICES DINAMICAS.
+// ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- //
+
+void sumaDeMatrices(uint8_t f, uint8_t c, double **matrizA, double **matrizB, double **matrizSuma)
+{
+	for(uint8_t i=0;i<f;i++)
+	{
+		for(uint8_t j=0;j<c;j++)
+		{
+			matrizSuma[i][j]=matrizA[i][j]+matrizB[i][j];
+		}
+	}
+}
+
+void restaDeMatrices(uint8_t f, uint8_t c, double **matrizA, double **matrizB, double **matrizResta)
+{
+	for(uint8_t i=0;i<f;i++)
+	{
+		for(uint8_t j=0;j<c;j++)
+		{
+			matrizResta[i][j]=matrizA[i][j]-matrizB[i][j];
+		}
+	}
+}
+
+void productoDeMatrices(uint8_t filA, uint8_t columB, uint8_t n, double **matrizA, double **matrizB, double **matrizProducto) 
+{
+	for (uint8_t i = 0; i < filA; i++) 
+	{
+		for (uint8_t j = 0; j < columB; j++) 
+		{
+			matrizProducto[i][j] = 0;
+			for (uint8_t k = 0; k < n; k++) 
+			{
+				matrizProducto[i][j] = matrizProducto[i][j] + matrizA[i][k] * matrizB[k][j];
+			}
+		}
+	}
+}
+
+void matrizPorEscalar(double n, uint8_t f, uint8_t c, double **m, double **p)
+{
+	for(uint8_t i=0;i<f;i++)
+	{
+		for(uint8_t j=0;j<c;j++)
+		{
+			p[i][j]=n*m[i][j];
+		}
+	}
+}
+
+// ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- //
+// FUNCIONES QUE MANEJAN LAS OPERACIONES AVANZADAS DE LAS MATRICES DINAMICAS.
+// ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- //
 
 double calcularDeterminante(uint8_t n, double **matriz)
 {
