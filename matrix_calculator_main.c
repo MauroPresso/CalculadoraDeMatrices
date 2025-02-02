@@ -9,40 +9,38 @@ int main()
     uint8_t opcion;
     do {
         opcion = obtenerOpcionMenu();
-        switch (opcion) 
-		{
-            case 0:
-                printf("\nSaliendo del programa...\n");
-                break; // El break es para que no siga ejecutando secuencialmente los otros casos.
-            case 1:
-                printf("\n[Operación seleccionada] Suma de matrices.\n");
-                handle_matrix_addition();
-                break;
-            case 2:
-                printf("\n[Operación seleccionada] Resta de matrices.\n");
-                handle_matrix_substraction();
-                break;
-            case 3:
-                printf("\n[Operación seleccionada] Multiplicación de matrices.\n");
-                handle_matrices_multiplication();
-                break;
-            case 4:
-                printf("\n[Operación seleccionada] Multiplicación por escalar.\n");
-                handle_matrix_and_scalar_multiplication();
-                break;
-            case 5:
-                printf("\n[Operación seleccionada] Transposición de matriz.\n");
-                handle_matrix_transpose();
-                break;
-            case 6:
-                printf("\n[Operación seleccionada] Cálculo del determinante.\n");
-                handle_matrix_determinant();
-                break;
-            case 7:
-                printf("\n[Operación seleccionada] Cálculo de matriz inversa.\n");
-                handle_matrix_inverse();
-                break;
-            // default: sentencia; /*opcional porque estoy seguro que todos los valores de el selector estan incluidos en las etiquetas case*/
+        if(opcion == 0)
+        {
+            printf("\nSaliendo del programa...\n");
+            return 0;
+        }
+        if(opcion == 1)
+        {
+            handle_matrix_addition();
+        }
+        if(opcion == 2)
+        {
+            handle_matrix_subtraction();
+        }
+        if(opcion == 3)
+        {
+            handle_matrices_multiplication();
+        }
+        if(opcion == 4)
+        {
+            handle_matrix_and_scalar_multiplication();
+        }
+        if(opcion == 5)
+        {
+            handle_matrix_transpose();
+        }
+        if(opcion == 6)
+        {
+            handle_matrix_determinant();
+        }
+        if(opcion == 7)
+        {
+            handle_matrix_inverse();
         }
     } while (opcion != 0);
     printf("\n¡Gracias por usar la calculadora!\n");
