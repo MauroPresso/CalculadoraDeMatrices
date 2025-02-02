@@ -23,21 +23,23 @@ void mostrarMenu(void)
     printf("'6': Calcular determinante\n");
     printf("'7': Calcular matriz inversa\n");
     printf("\n=============================================\n");
-    printf("Su eleccion:\t");
+    printf("\nSu eleccion:\t");
 }
 
 uint8_t obtenerOpcionMenu(void) 
 {
     uint8_t opcion;
+	int resultado;
     do{
         mostrarMenu();
-        scanf("%hhu", &opcion);
-        if(opcion > 8)
+        resultado = scanf("%hhu", &opcion);
+        if(resultado != 1 || opcion > 7)
         {
-            Beep(900,500);
-            printf("\nSr Usuario: Se le explico claramente que opciones validas podia ingresar para realizar la operacion del menu que usted deseara.\nSin lugar a dudas, ¡A usted no le funciona la materia gris!\n");
+            while (getchar() != '\n');  // Limpiar el buffer de entrada.
+			printf("\nSr Usuario: Se le explico claramente que opciones validas podia ingresar para realizar la operacion del menu que usted deseara.\nSin lugar a dudas, ¡A usted no le funciona la materia gris!\n");
+			printf("\a");  // Genera un sonido de alerta (opcional).
         }
-    }while(opcion > 8);
+    }while(resultado != 1 || opcion > 7);
     return opcion;
 }
 
@@ -48,45 +50,51 @@ uint8_t obtenerOpcionMenu(void)
 uint8_t preguntaSiCargar(void) // Pregunta si quiere CARGAR la matriz del archivo.
 {
     uint8_t askCharging;
+	int resultado;
     do{
-        printf("Ingrese si desea cargar la matriz resultado del archivo\n'1': SI\n'0': NO\nSu eleccion:\t");
-        scanf("%hhu", &askCharging);
-        if(askCharging != 1 && askCharging != 0)
+        printf("\nIngrese si desea cargar la matriz resultado del archivo\n'1': SI\n'0': NO\nSu eleccion:\t");
+        resultado = scanf("%hhu", &askCharging);
+        if(askCharging > 1 || resultado != 1)
         {
-            Beep(900,500);
+			while (getchar() != '\n');  // Limpiar el buffer de entrada.
             printf("\nSr Usuario, se le explico claramente que debe seleccionar:\n'1' si desea cargar la matriz del archivo y '0' si no desea cargarla.\nSin lugar a dudas, ¡A usted no le funciona la materia gris!\n");
+			printf("\a");  // Genera un sonido de alerta (opcional).
         }
-    }while(askCharging != 1 && askCharging != 0);
+    }while(askCharging > 1 || resultado != 1);
     return askCharging;
 }
 
 char preguntaDondeCargar(void)
 {
     char chargingPlace;
+	int resultado;
     do{
         printf("\nIngrese donde desea cargar la matriz del archivo:\n'A': Matriz A\n'B': Matriz B:\nSu eleccion:\t");
-        scanf("%c", &chargingPlace);
-        if(chargingPlace != 'A' && chargingPlace != 'B')
+        resultado = scanf(" %c", &chargingPlace);
+        if((chargingPlace != 'A' && chargingPlace != 'B') || resultado != 1)
         {
-            Beep(900,500);
+            while (getchar() != '\n');  // Limpiar el buffer de entrada.
             printf("\nSr Usuario, se le explico claramente que debe seleccionar:\n'A' si desea cargar la matriz del archivo en la Matriz A y 'B' si  desea cargar la matriz del archivo en la Matriz B.\nSin lugar a dudas, ¡A usted no le funciona la materia gris!\n");
+			printf("\a");  // Genera un sonido de alerta (opcional).
         }
-    }while(chargingPlace != 'A' && chargingPlace != 'B');
+    }while((chargingPlace != 'A' && chargingPlace != 'B') || resultado != 1);
     return chargingPlace;
 }
 
 uint8_t preguntaSiGuardar(void)
 {
     uint8_t askSaving;
+	int resultado;
     do{
         printf("Ingrese si desea guardar la matriz resultado en el archivo\n'1': SI\n'0': NO\nSu eleccion:\t");
-        scanf("%hhu", &askSaving);
-        if(askSaving != 1 && askSaving != 0)
+        resultado = scanf("%hhu", &askSaving);
+        if(askSaving > 1 || resultado != 1)
         {
-            Beep(900,500);
+            while (getchar() != '\n');  // Limpiar el buffer de entrada.
             printf("\nSr Usuario, se le explico claramente que debe seleccionar:\n'1' si desea guardar la matriz en el archivo y '0' si no desea guardarla.\nSin lugar a dudas, ¡A usted no le funciona la materia gris!\n");
+			printf("\a");  // Genera un sonido de alerta (opcional).
         }
-    }while(askSaving != 1 && askSaving != 0);
+    }while(askSaving > 1 || resultado != 1);
     return askSaving;
 }
 
