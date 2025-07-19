@@ -1,0 +1,48 @@
+\doxysection{matrix\+\_\+calculator\+\_\+lib.\+h}
+\hypertarget{matrix__calculator__lib_8h_source}{}\label{matrix__calculator__lib_8h_source}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#include\ <stdint.h>}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00009\ \textcolor{keywordtype}{void}\ mostrarMenu(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00014\ uint8\_t\ obtenerOpcionMenu(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00019\ uint8\_t\ preguntaSiCargar(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00020\ }
+\DoxyCodeLine{00024\ \textcolor{keywordtype}{char}\ preguntaDondeCargar(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00029\ uint8\_t\ preguntaSiGuardar(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00036\ \textcolor{keywordtype}{double}**\ crearMatriz(uint8\_t\ filas,\ uint8\_t\ columnas);}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00042\ \textcolor{keywordtype}{void}\ liberarMatriz(\textcolor{keywordtype}{double}\ **matriz,\ uint8\_t\ filas);}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00049\ \textcolor{keywordtype}{void}\ mostrarMatriz(uint8\_t\ f,\ uint8\_t\ c,\ \textcolor{keywordtype}{double}\ **m);}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00056\ \textcolor{keywordtype}{void}\ llenarMatriz(uint8\_t\ f,\ uint8\_t\ c,\ \textcolor{keywordtype}{double}\ **m);}
+\DoxyCodeLine{00057\ }
+\DoxyCodeLine{00064\ \textcolor{keywordtype}{void}\ guardarMatriz(\textcolor{keywordtype}{double}\ **matriz,\ uint8\_t\ f,\ uint8\_t\ c,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *nombreArchivo);}
+\DoxyCodeLine{00065\ }
+\DoxyCodeLine{00071\ \textcolor{keywordtype}{void}\ leerDimensionesMatriz(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *nombreArchivo,\ uint8\_t\ *f,\ uint8\_t\ *c);}
+\DoxyCodeLine{00072\ }
+\DoxyCodeLine{00079\ \textcolor{keywordtype}{void}\ cargarMatriz(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *nombreArchivo,\ \textcolor{keywordtype}{double}\ ***matriz,\ uint8\_t\ *f,\ uint8\_t\ *c);}
+\DoxyCodeLine{00080\ }
+\DoxyCodeLine{00088\ \textcolor{keywordtype}{void}\ sumaDeMatrices(uint8\_t\ f,\ uint8\_t\ c,\ \textcolor{keywordtype}{double}\ **matrizA,\ \textcolor{keywordtype}{double}\ **matrizB,\ \textcolor{keywordtype}{double}\ **matrizSuma);}
+\DoxyCodeLine{00089\ }
+\DoxyCodeLine{00097\ \textcolor{keywordtype}{void}\ restaDeMatrices(uint8\_t\ f,\ uint8\_t\ c,\ \textcolor{keywordtype}{double}\ **matrizA,\ \textcolor{keywordtype}{double}\ **matrizB,\ \textcolor{keywordtype}{double}\ **matrizResta);}
+\DoxyCodeLine{00098\ }
+\DoxyCodeLine{00107\ \textcolor{keywordtype}{void}\ productoDeMatrices(uint8\_t\ filA,\ uint8\_t\ columB,\ uint8\_t\ n,\ \textcolor{keywordtype}{double}\ **A,\ \textcolor{keywordtype}{double}\ **B,\ \textcolor{keywordtype}{double}\ **P);}
+\DoxyCodeLine{00108\ }
+\DoxyCodeLine{00116\ \textcolor{keywordtype}{void}\ matrizPorEscalar(\textcolor{keywordtype}{double}\ n,\ uint8\_t\ f,\ uint8\_t\ c,\ \textcolor{keywordtype}{double}\ **m,\ \textcolor{keywordtype}{double}\ **p);}
+\DoxyCodeLine{00117\ }
+\DoxyCodeLine{00123\ \textcolor{keywordtype}{double}\ calcularDeterminante(uint8\_t\ n,\ \textcolor{keywordtype}{double}\ **matriz);}
+\DoxyCodeLine{00124\ }
+\DoxyCodeLine{00131\ \textcolor{keywordtype}{void}\ transponerMatriz(\textcolor{keywordtype}{double}\ **matriz,\ \textcolor{keywordtype}{double}\ **transpuesta,\ uint8\_t\ filas,\ uint8\_t\ columnas);}
+\DoxyCodeLine{00132\ }
+\DoxyCodeLine{00138\ \textcolor{keywordtype}{void}\ calcularAdjunta(uint8\_t\ n,\ \textcolor{keywordtype}{double}\ **matriz,\ \textcolor{keywordtype}{double}\ **adjunta);}
+\DoxyCodeLine{00139\ }
+\DoxyCodeLine{00148\ \textcolor{keywordtype}{void}\ invertirMatriz(uint8\_t\ n,\ \textcolor{keywordtype}{double}\ determinante,\ \textcolor{keywordtype}{double}**\ matriz,\ \textcolor{keywordtype}{double}**\ transpuesta,\ \textcolor{keywordtype}{double}**\ adjunta,\ \textcolor{keywordtype}{double}**\ inversa);}
+
+\end{DoxyCode}
