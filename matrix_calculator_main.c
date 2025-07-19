@@ -12,6 +12,7 @@ int main()
         if(opcion == 0)
         {
             printf("\nSaliendo del programa...\n");
+            printf("\nGracias por usar la calculadora!\n");
             return 0;
         }
         if(opcion == 1)
@@ -43,6 +44,4 @@ int main()
             handle_matrix_inverse();
         }
     } while (opcion != 0);
-    printf("\n¡Gracias por usar la calculadora!\n");
-    return 0;
 }
