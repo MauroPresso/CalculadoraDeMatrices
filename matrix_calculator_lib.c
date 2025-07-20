@@ -36,7 +36,7 @@ uint8_t obtenerOpcionMenu(void)
         if(resultado != 1 || opcion > 7)
         {
             while (getchar() != '\n');  // Limpiar el buffer de entrada.
-			printf("\nSr Usuario: Se le explico claramente que opciones validas podia ingresar para realizar la operacion del menu que usted deseara.\nSin lugar a dudas, ¡A usted no le funciona la materia gris!\n");
+			printf("\nSr Usuario: Se le explico claramente que opciones validas podia ingresar para realizar la operacion del menu que usted deseara.\nSin lugar a dudas, Usted come crayones!\n");
 			printf("\a");  // Genera un sonido de alerta (opcional).
         }
     }while(resultado != 1 || opcion > 7);
@@ -57,7 +57,7 @@ uint8_t preguntaSiCargar(void) // Pregunta si quiere CARGAR la matriz del archiv
         if(askCharging > 1 || resultado != 1)
         {
 			while (getchar() != '\n');  // Limpiar el buffer de entrada.
-            printf("\nSr Usuario, se le explico claramente que debe seleccionar:\n'1' si desea cargar la matriz del archivo y '0' si no desea cargarla.\nSin lugar a dudas, ¡A usted no le funciona la materia gris!\n");
+            printf("\nSr Usuario, se le explico claramente que debe seleccionar:\n'1' si desea cargar la matriz del archivo y '0' si no desea cargarla.\nSin lugar a dudas, Usted come crayones!\n");
 			printf("\a");  // Genera un sonido de alerta (opcional).
         }
     }while(askCharging > 1 || resultado != 1);
@@ -74,7 +74,7 @@ char preguntaDondeCargar(void)
         if((chargingPlace != 'A' && chargingPlace != 'B') || resultado != 1)
         {
             while (getchar() != '\n');  // Limpiar el buffer de entrada.
-            printf("\nSr Usuario, se le explico claramente que debe seleccionar:\n'A' si desea cargar la matriz del archivo en la Matriz A y 'B' si  desea cargar la matriz del archivo en la Matriz B.\nSin lugar a dudas, ¡A usted no le funciona la materia gris!\n");
+            printf("\nSr Usuario, se le explico claramente que debe seleccionar:\n'A' si desea cargar la matriz del archivo en la Matriz A y 'B' si  desea cargar la matriz del archivo en la Matriz B.\nSin lugar a dudas, Usted come crayones!\n");
 			printf("\a");  // Genera un sonido de alerta (opcional).
         }
     }while((chargingPlace != 'A' && chargingPlace != 'B') || resultado != 1);
@@ -91,7 +91,7 @@ uint8_t preguntaSiGuardar(void)
         if(askSaving > 1 || resultado != 1)
         {
             while (getchar() != '\n');  // Limpiar el buffer de entrada.
-            printf("\nSr Usuario, se le explico claramente que debe seleccionar:\n'1' si desea guardar la matriz en el archivo y '0' si no desea guardarla.\nSin lugar a dudas, ¡A usted no le funciona la materia gris!\n");
+            printf("\nSr Usuario, se le explico claramente que debe seleccionar:\n'1' si desea guardar la matriz en el archivo y '0' si no desea guardarla.\nSin lugar a dudas, Usted come crayones!\n");
 			printf("\a");  // Genera un sonido de alerta (opcional).
         }
     }while(askSaving > 1 || resultado != 1);
