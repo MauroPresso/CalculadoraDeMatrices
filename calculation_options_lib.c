@@ -27,7 +27,7 @@ void handle_matrix_addition(void)
             if(rows == 0)
             {
                 Beep(900,500);
-                printf("\nSr Usuario: El numero de filas de una matriz es estrictamente positivo.\nSin lugar a dudas, ¡Usted es retrasado!\n");
+                printf("\nSr Usuario: El numero de filas de una matriz es estrictamente positivo.\nSin lugar a dudas, Usted es retrasado!\n");
             }
             if(rows > 255)
             {
@@ -43,7 +43,7 @@ void handle_matrix_addition(void)
             if(cols == 0)
             {
                 Beep(900,500);
-                printf("\nSr Usuario: El numero de columnas de una matriz es estrictamente positivo.\nSin lugar a dudas, ¡Usted es retrasado!\n");
+                printf("\nSr Usuario: El numero de columnas de una matriz es estrictamente positivo.\nSin lugar a dudas, Usted es retrasado!\n");
             }
             if(cols > 255)
             {
@@ -131,7 +131,7 @@ void handle_matrix_subtraction(void)
             if(rows == 0)
             {
                 Beep(900,500);
-                printf("\nSr Usuario: El numero de filas de una matriz es estrictamente positivo.\nSin lugar a dudas, ¡Usted es retrasado!\n");
+                printf("\nSr Usuario: El numero de filas de una matriz es estrictamente positivo.\nSin lugar a dudas, Usted es retrasado!\n");
             }
             if(rows > 255)
             {
@@ -146,7 +146,7 @@ void handle_matrix_subtraction(void)
             if(cols == 0)
             {
                 Beep(900,500);
-                printf("\nSr Usuario: El numero de columnas de una matriz es estrictamente positivo.\nSin lugar a dudas, ¡Usted es retrasado!\n");
+                printf("\nSr Usuario: El numero de columnas de una matriz es estrictamente positivo.\nSin lugar a dudas, Usted es retrasado!\n");
             }
             if(cols > 255)
             {
@@ -262,7 +262,7 @@ void handle_matrices_multiplication(void)
             if(rows_a == 0)
             {
                 Beep(900,500);
-                printf("\nSr Usuario: El numero de filas de una matriz es estrictamente positivo.\nSin lugar a dudas, ¡Usted es retrasado!\n");
+                printf("\nSr Usuario: El numero de filas de una matriz es estrictamente positivo.\nSin lugar a dudas, Usted es retrasado!\n");
             }
             if(rows_a > 255)
             {
@@ -278,7 +278,7 @@ void handle_matrices_multiplication(void)
             if(N == 0)
             {
                 Beep(900,500);
-                printf("\nSr Usuario: El numero de filas y de columnas de una matriz es estrictamente positivo.\nSin lugar a dudas, ¡Usted es retrasado!\n");
+                printf("\nSr Usuario: El numero de filas y de columnas de una matriz es estrictamente positivo.\nSin lugar a dudas, Usted es retrasado!\n");
             }
             if(N > 255)
             {
@@ -294,7 +294,7 @@ void handle_matrices_multiplication(void)
             if(cols_b == 0)
             {
                 Beep(900,500);
-                printf("\nSr Usuario: El numero de columnas de una matriz es estrictamente positivo.\nSin lugar a dudas, ¡Usted es retrasado!\n");
+                printf("\nSr Usuario: El numero de columnas de una matriz es estrictamente positivo.\nSin lugar a dudas, Usted es retrasado!\n");
             }
             if(cols_b > 255)
             {
@@ -321,7 +321,7 @@ void handle_matrices_multiplication(void)
                 if(cols_b == 0)
                 {
                     Beep(900,500);
-                    printf("\nSr Usuario: El numero de columnas de una matriz es estrictamente positivo.\nSin lugar a dudas, ¡Usted es retrasado!\n");
+                    printf("\nSr Usuario: El numero de columnas de una matriz es estrictamente positivo.\nSin lugar a dudas, Usted es retrasado!\n");
                 }
                 if(cols_b > 255)
                 {
@@ -341,7 +341,7 @@ void handle_matrices_multiplication(void)
                 if(rows_a == 0)
                 {
                     Beep(900,500);
-                    printf("\nSr Usuario: El numero de filas de una matriz es estrictamente positivo.\nSin lugar a dudas, ¡Usted es retrasado!\n");
+                    printf("\nSr Usuario: El numero de filas de una matriz es estrictamente positivo.\nSin lugar a dudas, Usted es retrasado!\n");
                 }
                 if(rows_a > 255)
                 {
@@ -456,7 +456,7 @@ void handle_matrix_and_scalar_multiplication(void)
             if(rows == 0)
             {
                 Beep(900,500);
-                printf("\nSr Usuario: El numero de filas de una matriz es estrictamente positivo.\nSin lugar a dudas, ¡Usted es retrasado!\n");
+                printf("\nSr Usuario: El numero de filas de una matriz es estrictamente positivo.\nSin lugar a dudas, Usted es retrasado!\n");
             }
             if(rows > 255)
             {
@@ -472,7 +472,7 @@ void handle_matrix_and_scalar_multiplication(void)
             if(cols == 0)
             {
                 Beep(900,500);
-                printf("\nSr Usuario: El numero de columnas de una matriz es estrictamente positivo.\nSin lugar a dudas, ¡Usted es retrasado!\n");
+                printf("\nSr Usuario: El numero de columnas de una matriz es estrictamente positivo.\nSin lugar a dudas, Usted es retrasado!\n");
             }
             if(cols > 255)
             {
@@ -549,7 +549,7 @@ void handle_matrix_transpose(void)
             if(rows == 0)
             {
                 Beep(900,500);
-                printf("\nSr Usuario: El numero de filas de una matriz es estrictamente positivo.\nSin lugar a dudas, ¡Usted es retrasado!\n");
+                printf("\nSr Usuario: El numero de filas de una matriz es estrictamente positivo.\nSin lugar a dudas, Usted es retrasado!\n");
             }
             if(rows > 255)
             {
@@ -563,7 +563,7 @@ void handle_matrix_transpose(void)
             if(cols == 0)
             {
                 Beep(900,500);
-                printf("\nSr Usuario: El numero de columnas de una matriz es estrictamente positivo.\nSin lugar a dudas, ¡Usted es retrasado!\n");
+                printf("\nSr Usuario: El numero de columnas de una matriz es estrictamente positivo.\nSin lugar a dudas, Usted es retrasado!\n");
             }
             if(cols > 255)
             {
@@ -636,7 +636,7 @@ void handle_matrix_determinant(void)
             if(size == 0)
             {
                 Beep(900,500);
-                printf("\nSr Usuario: El orden de una matriz cuadrada debe ser estrictamente positivo. Sin lugar a dudas, ¡Usted es retrasado! \n");
+                printf("\nSr Usuario: El orden de una matriz cuadrada debe ser estrictamente positivo. Sin lugar a dudas, Usted es retrasado! \n");
             }
         }while(size == 0);
     }
@@ -704,7 +704,7 @@ void handle_matrix_inverse(void)
             if(size == 0)
             {
                 Beep(900,500);
-                printf("\nSr Usuario: El orden de una matriz cuadrada debe ser estrictamente positivo. Sin lugar a dudas, ¡Usted es retrasado! \n");
+                printf("\nSr Usuario: El orden de una matriz cuadrada debe ser estrictamente positivo. Sin lugar a dudas, Usted es retrasado! \n");
             }
         }while(size == 0);
     }
