@@ -91,7 +91,7 @@ void handle_matrix_addition(void)
     sumaDeMatrices(rows, cols, matrix_a, matrix_b, result);
     printf("\nResultado de la suma:\n");
     mostrarMatriz(rows, cols, result);
-
+    printf("\n");
     askSaving = preguntaSiGuardar();
     if(askSaving == 1)
     {
@@ -220,7 +220,7 @@ void handle_matrix_subtraction(void)
 
     printf("\nResultado de la resta:\n");
     mostrarMatriz(rows, cols, result);
-
+    printf("\n");
     askSaving = preguntaSiGuardar();
 
     if(askSaving == 1)
@@ -243,7 +243,7 @@ void handle_matrix_subtraction(void)
 
 void handle_matrices_multiplication(void) 
 {
-    printf("\n--- Multiplicación de Matrices ---\n"); // Este printf lo agrego solo por estetica.
+    printf("\n--- Multiplicacion de Matrices ---\n"); // Este printf lo agrego solo por estetica.
     
     // Declaro las variables fuera de las estructuras de control para poder seguir utilizandolas fuera de estas ultimas.
     uint8_t rows_a, N, cols_b;
@@ -411,12 +411,12 @@ void handle_matrices_multiplication(void)
     productoDeMatrices(rows_a, cols_b, N, matrix_a, matrix_b, result);
 
     // Muestro la Matriz Resultado.
-    printf("\nResultado de la multiplicación:\n");
+    printf("\nResultado de la multiplicacion:\n");
     mostrarMatriz(rows_a, cols_b, result);
-
+    printf("\n");
     // Pregunta si quiere GUARDAR la matriz del archivo.
     askSaving = preguntaSiGuardar();
-
+    
     if(askSaving == 1) // SI desea GUARDAR.
     {
         guardarMatriz(result, rows_a, cols_b, "matrizResultado.txt");
@@ -514,7 +514,7 @@ void handle_matrix_and_scalar_multiplication(void)
 
     printf("\nMatriz resultado:\n");
     mostrarMatriz(rows, cols, result);
-
+    printf("\n");
     askSaving = preguntaSiGuardar();
 
     if(askSaving == 1)
@@ -598,9 +598,9 @@ void handle_matrix_transpose(void)
     double** result = crearMatriz(cols, rows);
     transponerMatriz(matrix, result, rows, cols);
 
-    printf("\nResultado de la transposición:\n");
+    printf("\nResultado de la transposicion:\n");
     mostrarMatriz(cols, rows, result);
-
+    printf("\n");
     askSaving = preguntaSiGuardar();
 
     if(askSaving == 1)
@@ -732,11 +732,20 @@ void handle_matrix_inverse(void)
         llenarMatriz(size, size, matrix);
         printf("\nMatriz:\n");
         mostrarMatriz(size, size, matrix);
+        determinante = calcularDeterminante(size, matrix);
+        if(determinante == 0)
+        {
+            Beep(900,500);
+            printf("\nNo es posible calcular la inversa ya que el determinante de la matriz es CERO.\n");
+            return;
+        }
     }
 
     if(askCharging == 1)
     {
         cargarMatriz("matrizResultado.txt", &matrix, &size, &size);
+        printf("\nMatriz:\n");
+        mostrarMatriz(size, size, matrix);
         determinante = calcularDeterminante(size, matrix);
         if(determinante == 0)
         {
@@ -753,7 +762,7 @@ void handle_matrix_inverse(void)
     invertirMatriz(size, determinante, matrix, transpuesta, adjunta, inversa);
     printf("\nMatriz INVERSA:\n");
     mostrarMatriz(size, size, inversa);
-
+    printf("\n");
     askSaving = preguntaSiGuardar();
 
     if(askSaving == 1)
